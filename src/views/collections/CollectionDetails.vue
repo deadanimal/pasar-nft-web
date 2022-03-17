@@ -57,11 +57,13 @@
 	import { useRoute } from 'vue-router';
 	import { useStore } from 'vuex';
 
-	import { computed } from 'vue'
+	import { computed, inject } from 'vue'
 	
 	export default {
 
 		setup(){
+
+			const ethers = inject('ethers')			
 
 			const route = useRoute()
 			const store = useStore()

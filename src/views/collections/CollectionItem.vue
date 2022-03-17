@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div data-component="view.collections.CollectionItem">
 
 		<h1 class="mt-4 font-bold text-3xl text-gray-500">{{collection.name}}</h1>
 
