@@ -7,6 +7,8 @@ import ethers from "./plugins/ethers"
 
 
 // import './assets/tailwind.css'
+import './assets/style.css'
+
 
 // lazy load, kept for reference
 // import { defineAsyncComponent } from "vue";

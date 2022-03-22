@@ -23,16 +23,36 @@
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 
 				
-					<div class="border rounded flex flex-col cursor-pointer" v-for="item in collection.items" :key="item.imageUrl" @click="$router.push({name:'collection-item', params:{name:collection.name, title:item.title}})">
-											
-							<figure class="flex-1 flex flex-col justify-center">
-								<img :src="item.imageUrl" alt="" class="w-full">
-							</figure>		
+					<div class="border rounded flex flex-col cursor-pointer justify-between" v-for="item in collection.items" :key="item.imageUrl" @click="$router.push({name:'collection-item', params:{name:collection.name, title:item.title}})">
+										
+							<div class="max-h-72 p-2">
+
+								<figure class="flex flex-col justify-center h-full">
+									<img :src="item.imageUrl" alt="" class="h-full object-contain">
+								</figure>		
+
+							</div>
 						
-							<div class="flex justify-between mt-4 p-4">
-								<p>{{item.title}}</p>
-								<p>ETH{{item.price}}</p>
-							</div>																												
+							<div class="mt-4 p-4 bgc-gradient-gray">
+
+								<div class="flex justify-between font-semibold text-gray-500">
+									<p>{{collection.author}}</p>
+									<p>Price</p>
+								</div>
+
+								<div class="flex justify-between text-sm">
+									<p>{{item.title}}</p>
+									<div class="flex">
+										<img src="https://openseauserdata.com/static/miscellaneous/sandbox-token.png" alt="" class="w-4 h-4 mr-1">
+										<p>{{item.price}}</p>
+									</div>
+								</div>																					
+
+								<div class="flex justify-end items-center">
+									<ClockIcon :class="['ml-2 h-4 w-4 group-hover:text-gray-500']" aria-hidden="true" />
+									<span class="ml-2 text-sm">6 days left</span>
+								</div>					
+							</div>		
 					</div>
 
 				
@@ -58,8 +78,13 @@
 	import { useStore } from 'vuex';
 
 	import { computed, inject } from 'vue'
+	import { ClockIcon } from '@heroicons/vue/solid'
 	
 	export default {
+
+		components: {
+			ClockIcon
+		},
 
 		setup(){
 

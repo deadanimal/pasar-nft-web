@@ -3,7 +3,7 @@
     <div data-component="view.collections.Collections">
       
         <div>        
-            <h1 class="my-4 text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl text-center">Explore Collections</h1>
+            <h1 class="my-12 text-4xl font-semibold text-gray-900  sm:tracking-tight text-center">Explore Collections</h1>
 
         </div>
 
@@ -13,13 +13,13 @@
                 <div 
                     v-for="collection in collections" 
                     :key="collection.id"
-                    class="border border-black rounded"
+                    class="border rounded"
                 >
                     <a href="#" @click="$router.push({name:'collection', params:{ name:collection.title }})">
 
                         <div>
                             <figure>
-                                <img :src="collection.imageUrl" alt="" class="w-full object-cover object-center h-44">
+                                <img :src="collection.imageUrl" alt="" class="w-full object-cover object-center h-44 rounded-t">
                             </figure>
 
                             <figure class="flex justify-center">
@@ -29,8 +29,8 @@
 
                         <div class="flex flex-col items-center">
                             <strong>{{ collection.title }}</strong>
-                            <p>By <span>{{ collection.author }}</span> </p>
-                            <p class="p-8 text-gray-400">{{ collection.introText }}</p>
+                            <p v-if="collection.author">By <span>{{ collection.author }}</span> </p>
+                            <p class="p-4 text-gray-400">{{ collection.introText }}</p>
                         </div>
                     
                     </a>
