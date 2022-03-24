@@ -2,6 +2,16 @@
   
     <div data-component="view.collections.Collections">
       
+        <p class="mt-4">
+            <a href="#" @click.prevent="$router.push({name:'test.contract.erc20'})" class="text-sky-300">ERC20 Test</a>    
+        </p>
+
+        <p>
+            <a href="#" @click.prevent="$router.push({name:'test.contract.erc721'})" class="text-sky-300">ERC721 Test</a>    
+        </p>
+        
+        
+
         <div>        
             <h1 class="my-12 text-4xl font-semibold text-gray-900  sm:tracking-tight text-center">Explore Collections</h1>
 
