@@ -941,6 +941,7 @@ let mutations = {
 		state.signer = signer
 	},
 	setContract(state, {address, contract}){
+		
 		_find( state.contracts, {address}).contract = contract
 	},
 	setUserAddress(state, address){

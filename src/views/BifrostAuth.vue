@@ -83,22 +83,24 @@
 				storage.setStorageSync("ts", queryData.ts)				
 
 				const setUpContracts = () => {
-	                const provider = markRaw(new ethers.providers.JsonRpcProvider("https://rpc.chainbifrost.com"));
+	                const provider = new ethers.providers.JsonRpcProvider("https://rpc.chainbifrost.com");	             
 	             	            
 
 	                // const signer = new ethers.Wallet("765e8e35beaed8b0dea655206d725964d976ae911750c6422339edbeca52d3dd", provider)
 
-	                const signer = markRaw(new ethers.Wallet(queryData.sig, provider))
+	                const signer = new ethers.Wallet(queryData.sig, provider)
 
-	                store.dispatch('contract/setProvider', provider)
+
+	                store.dispatch('contract/setSigner', markRaw(signer))
+	                store.dispatch('contract/setProvider', markRaw(provider))
 	                store.dispatch('contract/setUserAddress', queryData.address)
 	            
 	                // setup contracts
 	                const contracts = store.getters['contract/contracts'];
 
 	                for(const c of contracts){ 	               
-	                    const contract = markRaw(new ethers.Contract(c.address, c.abi, signer));
-	                    store.dispatch('contract/setContract', {address: c.address, contract})
+	                    const contract = new ethers.Contract(c.address, c.abi, signer);	              
+	                    store.dispatch('contract/setContract', {address: c.address, contract:markRaw(contract)})
 	                }
 	            
 	            }
@@ -107,7 +109,7 @@
 
 				// some redirect function
 
-				const redirectTimeout = ref(10);
+				const redirectTimeout = ref(5);
 
 				const redirectInterval = setInterval(()=>{					
 					if(redirectTimeout.value > 0){
@@ -119,7 +121,7 @@
 				setTimeout(()=>{
 					clearInterval(redirectInterval)
 					router.push('/')
-				}, 11000)
+				}, 6000)
 
 				// return 
 				return {

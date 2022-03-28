@@ -235,11 +235,8 @@
 			const contractAddress = '0xB4bA73F5AE48347DD056fF0eF6F9DEDC00bC9462'
 			const {contract} = toRaw(store.getters['contract/contract'](contractAddress))
 			const signer = toRaw(store.getters['contract/signer'])
-
-			console.log({contract})
-
-			const userAddress = storage.getStorageSync('address')
-			console.log({userAddress})	
+			const userAddress = storage.getStorageSync('address')	
+			
 
 
 
