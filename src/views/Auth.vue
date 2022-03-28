@@ -44,12 +44,15 @@
 
 			const connect = async ()=>{				
 
-				const web3Modal = getWeb3Modal();				
-				const connection = await web3Modal.connect()				
-      			const provider = new ethers.providers.Web3Provider(connection)      			
-      			const accounts = await provider.listAccounts()
+				const web3Modal = getWeb3Modal();
+				
+				const provider = await web3Modal.connectTo("walletconnect");
+				
+				// const connection = await web3Modal.connect()				
+    //   			const provider = new ethers.providers.Web3Provider(connection)      			
+    //   			const accounts = await provider.listAccounts()
 
-      			console.log(accounts)
+    //   			console.log(accounts)
 
 
 			}

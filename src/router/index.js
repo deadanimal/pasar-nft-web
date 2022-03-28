@@ -4,6 +4,7 @@ import CollectionsView from '../views/collections/Collections.vue'
 import CollectionDetailsView from '../views/collections/CollectionDetails.vue'
 import CollectionItemView from '../views/collections/CollectionItem.vue'
 import AuthView from '../views/Auth.vue'
+import BifrostAuthView from '../views/BifrostAuth.vue'
 import ERC20View from '../views/tests/contract/ERC20.vue'
 import ERC721View from '../views/tests/contract/ERC721.vue'
 import TestContractView from '../views/tests/contract/TestContract.vue'
@@ -51,6 +52,14 @@ const routes = [
       }
     ]
 
+  },
+  {
+    path: '/login-via-web3',
+    name:'auth.bifrost.callback',
+    component: BifrostAuthView,
+    meta:{
+      layout:'blank'
+    }
   }
 
 

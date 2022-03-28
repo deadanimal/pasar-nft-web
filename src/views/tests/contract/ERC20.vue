@@ -185,11 +185,15 @@
 	
 	import { computed, inject, toRaw, ref, reactive } from 'vue'
 	import { useStore } from 'vuex'
+	import { useRoute } from 'vue-router'
+	import { useStorage } from "vue3-storage";
 
 	export default {
 
 		setup(){
 
+			const route = useRoute()
+			const storage = useStorage()
 			
 			const processing = ref(false)
 
@@ -230,7 +234,12 @@
 			const store = useStore();
 			const contractAddress = '0xB4bA73F5AE48347DD056fF0eF6F9DEDC00bC9462'
 			const {contract} = toRaw(store.getters['contract/contract'](contractAddress))
-			const signer = toRaw(store.getters['contract/signer'])	
+			const signer = toRaw(store.getters['contract/signer'])
+
+			console.log({contract})
+
+			const userAddress = storage.getStorageSync('address')
+			console.log({userAddress})	
 
 
 

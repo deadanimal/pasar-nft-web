@@ -33,7 +33,7 @@
                             </figure>
 
                             <figure class="flex justify-center">
-                                <img :src="collection.profileImageUrl" alt="" class="rounded-full w-12 h-12 p-1 transform -translate-y-4 bg-white">
+                                <img :src="collection.profileImageUrl" alt="" class="rounded-full w-12 h-12 p-1 -mt-4 bg-white">
                             </figure>
                         </div>
 
@@ -45,6 +45,8 @@
                     
                     </a>
                 </div>
+
+                
             </div>
 
         
@@ -59,20 +61,21 @@
     import { useStore } from 'vuex';
     import { computed } from 'vue';
 
+
     export default {
 
         setup(){
             // data
-            const store = useStore()
+            const store = useStore()            
 
             // computed
             const collections = computed(()=>{
                 return store.getters['collections/collections'];
-            });
+            });                    
 
             // return
             return {
-                collections
+                collections                
             }
         }
 

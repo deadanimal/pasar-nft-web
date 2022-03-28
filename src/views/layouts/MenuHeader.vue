@@ -120,8 +120,13 @@
 
 				<!-- Block: sign-in and sign up: shown only on tablet and above -->
 				<div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-					<a href="#" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"> Sign in </a>
-					<a href="#" class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"> Sign up </a>
+					<div v-if="!address">
+						<a :href="bifrostLogin" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"> Sign in </a>
+						<!-- <a href="#" class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"> Sign up </a> -->
+					</div>
+					<div v-else>
+						Welcome {{addressShort}}
+					</div>
 				</div>
 			</div>
 		</div>
@@ -178,6 +183,7 @@
 </template>
 
 <script>
+	import {ref} from 'vue'
 	import { Popover, PopoverButton, PopoverGroup, PopoverPanel } from '@headlessui/vue'
 	import {
 		BookmarkAltIcon,
@@ -253,6 +259,9 @@
 	{ id: 3, name: 'Improve your customer experience', href: '#' },
 	]
 
+	import { useStorage } from "vue3-storage";
+	import { computed } from 'vue';
+
 	export default {
 		components: {
 			Popover,
@@ -264,11 +273,37 @@
 			XIcon,
 		},
 		setup() {
+
+			const storage = useStorage()
+
+			const hostname = window.location.hostname
+
+			const bifrostLogin = `https://chainbifrost.com/connect?dapp=${hostname}`
+
+
+			const addressShort = computed(()=>{
+				const address = storage.getStorageSync('address')
+				
+				const firstPart = address.substring(0,4);
+
+				const lastPart = address.substring(address.length - 3, address.length);
+
+				return `${firstPart}...${lastPart}`
+			})
+
+			const address = storage.getStorageSync('address')
+		
+
+
+
 			return {
 				solutions,
 				callsToAction,
 				resources,
 				recentPosts,
+				bifrostLogin,
+				address,
+				addressShort
 			}
 		},
 	}

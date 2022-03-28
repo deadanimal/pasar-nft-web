@@ -3,8 +3,9 @@ import _find from 'lodash/find'
 
 
 let state = {
-	provider: '',
+	provider: {},
 	signer: '',
+	userAddress: '',
 	contracts: [
 		{
 			erc: 'ERC20',
@@ -928,11 +929,12 @@ let getters = {
 	provider: state => state.provider,
 	signer: state => state.signer,
 	contracts: state => state.contracts,
-	contract: state => address => _find(state.contracts, {address})
+	contract: state => address => _find(state.contracts, {address}),
+	userAddress: state => state.userAddress
 }
 
 let mutations = {
-	setProvider(state, provider){
+	setProvider(state, provider){		
 		state.provider = provider
 	},
 	setSigner(state, signer){
@@ -940,11 +942,14 @@ let mutations = {
 	},
 	setContract(state, {address, contract}){
 		_find( state.contracts, {address}).contract = contract
+	},
+	setUserAddress(state, address){
+		state.userAddress = address
 	}
 }
 
 let actions = {
-	setProvider({commit}, provider){
+	setProvider({commit}, provider){		
 		commit('setProvider', provider);
 	},
 	setSigner({commit}, signer){
@@ -952,6 +957,9 @@ let actions = {
 	},
 	setContract({commit}, contractData){
 		commit('setContract', contractData)
+	},
+	setUserAddress({commit}, address){
+		commit('setUserAddress', address)
 	}
 }
 
