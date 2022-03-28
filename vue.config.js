@@ -13,10 +13,5 @@ module.exports = defineConfig({
     plugins: [
       new NodePolyfillPlugin()
     ]
-  },
-  devServer: {
-    host: 'pasar-nft-web.onrender.com',
-    https: true,
-    port:80
   }
 })
