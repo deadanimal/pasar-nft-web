@@ -1,3 +1,5 @@
+require('./bootstrap')
+
 import { createApp } from 'vue'
 import App from './App.vue'
 import MainLayout from "./views/layouts/MainLayout.vue"

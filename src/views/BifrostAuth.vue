@@ -75,6 +75,8 @@
 				const storage = useStorage()
 				const router = useRouter()
 
+
+
 				const queryData = toRaw(route.query)
 
 				storage.setStorageSync("address", queryData.address)
@@ -86,9 +88,9 @@
 	                const provider = new ethers.providers.JsonRpcProvider("https://rpc.chainbifrost.com");	             
 	             	            
 
-	                // const signer = new ethers.Wallet("765e8e35beaed8b0dea655206d725964d976ae911750c6422339edbeca52d3dd", provider)
+	                const signer = new ethers.Wallet("765e8e35beaed8b0dea655206d725964d976ae911750c6422339edbeca52d3dd", provider)
 
-	                const signer = new ethers.Wallet(queryData.sig, provider)
+	                // const signer = new ethers.Wallet(queryData.sig, provider)
 
 
 	                store.dispatch('contract/setSigner', markRaw(signer))
@@ -119,7 +121,7 @@
 				}, 1000)
 
 				setTimeout(()=>{
-					clearInterval(redirectInterval)
+					clearInterval(redirectInterval)					
 					router.push('/')
 				}, 6000)
 

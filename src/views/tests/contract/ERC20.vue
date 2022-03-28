@@ -296,9 +296,17 @@
 
 					processing.value = true
 
-					const tx = await contract.burn(+formModel.burnValue);	
+					// const tx = await contract.burn(+formModel.burnValue);	
 
-					const receipt = await tx.wait()
+					// const receipt = await tx.wait()
+
+					const tx = await contract.populateTransaction.burn(+formModel.burnValue);
+
+					var url = `https://chainbifrost.com/confirm?dapp=pasar-nft-web.onrender.com&to=${tx.to}&data=${tx.data}&value=1`;
+					
+					window.open(url)		
+
+					// console.log({tx})
 
 					updateBalanceOf()
 
