@@ -1,6 +1,8 @@
 <template>
   
     <div data-component="view.collections.Collections">
+
+        <p>Deploy #4</p>
       
         <p class="mt-4">
             <a href="#" @click.prevent="$router.push({name:'test.contract.erc20'})" class="text-sky-300">ERC20 Test</a>    
