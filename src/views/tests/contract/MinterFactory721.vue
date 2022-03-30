@@ -22,7 +22,7 @@
 				<button type="button" class="focus:outline-none text-white bg-orange-400 hover:bg-orange-600 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900 w-48" @click="mint"> Mint</button>
 
 				<input type="text" v-model="formModel.mint.address" placeholder="Mint Address" class="mx-2 border">	
-				<input type="text" v-model="formModel.mint.value" placeholder="Mint Value" class="mx-2 border">	
+				<input type="text" v-model="formModel.mint.tokenId" placeholder="Contract token Id" class="mx-2 border">	
 				<input type="text" v-model="formModel.mint.uri" placeholder="Mint Uri" class="mx-2 border">	
 			</div>
 
@@ -57,28 +57,29 @@
 			const formModel = reactive({
 				mint:{
 					address: '',
-					value: '',
+					tokenId: '',
 					uri: ''
 				}
 			})
 
+			console.log({userAddress: storage.getStorageSync('address')})
+
 			// readMethods
 			const tokenIdCounter = async() =>{
 				const tx = await contract.tokenIdCounter()
-
-				
-
-				console.log({tx:tx.toNumber()})
+				console.log({tokenId:tx.toNumber()})
 			}
 
-			// tokenIdCounter()
+			tokenIdCounter()
+
+
 
 
 			// write methods
 			const updateBalanceOf = async ()=>{
-				// const newbalance = await contract.balanceOf('0x17445FcEe7324ba95C784AaA0131f00E0Ae05128')
+				const newbalance = await contract.balanceOf('0x17445FcEe7324ba95C784AaA0131f00E0Ae05128')
 
-				// balanceOf.value = newbalance.toNumber()
+				balanceOf.value = newbalance.toNumber()
 			}
 
 
@@ -87,7 +88,7 @@
 
 					processing.value = true				
 
-					const tx = await contract.populateTransaction.mint(+formModel.mint.value, formModel.mint.address, formModel.mint.uri  )					
+					const tx = await contract.populateTransaction.mint(+formModel.mint.tokenId, formModel.mint.address, formModel.mint.uri  )					
 
 					var url = `https://chainbifrost.com/confirm?dapp=pasar-nft-web.onrender.com&to=${tx.to}&data=${tx.data}`;
 					

@@ -287,9 +287,9 @@
 			const addressShort = computed(()=>{
 				const address = storage.getStorageSync('address')
 				
-				const firstPart = address.substring(0,4);
+				const firstPart = address.substring(0,5);
 
-				const lastPart = address.substring(address.length - 3, address.length);
+				const lastPart = address.substring(address.length - 5, address.length);
 
 				return `${firstPart}...${lastPart}`
 			})
