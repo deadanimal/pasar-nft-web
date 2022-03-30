@@ -19,6 +19,14 @@
 			>
 				ERC721
 			</p>
+
+			<p 
+				class="w-1/2 py-4 flex justify-center items-center cursor-pointer"
+				:class="{'active': activePath == 'minterFactory721'}"
+				@click="$router.push({name: 'test.contract.minterFactory721'})"
+			>
+				MinterFactory721
+			</p>
 		</div>
 
 		<router-view></router-view>
@@ -38,7 +46,8 @@
 			const route = useRoute()			
 
 			const activePath = computed(() => {
-				return route.fullPath == "/test/contract/erc20" ? 'erc20' : 'erc721'
+				const paths = route.fullPath.split("/")				
+				return paths[3]
 			})
 
 			return {

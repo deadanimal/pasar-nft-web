@@ -1,14 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import CollectionsView from '../views/collections/Collections.vue'
-import CollectionDetailsView from '../views/collections/CollectionDetails.vue'
-import CollectionItemView from '../views/collections/CollectionItem.vue'
-import AuthView from '../views/Auth.bk.vue'
-import LoginView from '../views/Login.vue'
-import BifrostAuthView from '../views/BifrostAuth.vue'
-import ERC20View from '../views/tests/contract/ERC20.vue'
-import ERC721View from '../views/tests/contract/ERC721.vue'
-import TestContractView from '../views/tests/contract/TestContract.vue'
+const CollectionsView =  ()=> import('../views/collections/Collections.vue')
+const CollectionDetailsView =  ()=> import('../views/collections/CollectionDetails.vue')
+const CollectionItemView =  ()=> import('../views/collections/CollectionItem.vue')
+const AuthView =  ()=> import('../views/Auth.bk.vue')
+const LoginView =  ()=> import('../views/Login.vue')
+const BifrostAuthView =  ()=> import('../views/BifrostAuth.vue')
+const ERC20View =  ()=> import('../views/tests/contract/ERC20.vue')
+const ERC721View =  ()=> import('../views/tests/contract/ERC721.vue')
+const TestContractView =  ()=> import('../views/tests/contract/TestContract.vue')
+const MinterFactory721View = () => import('../views/tests/contract/MinterFactory721.vue') 
+
+import { useStorage } from "vue3-storage";
+import store from  '../store'
 
 const routes = [
   {
@@ -48,6 +52,9 @@ const routes = [
     path: '/test/contract',
     name: 'test.contract',
     component: TestContractView,
+    meta:{
+      requiresAuth: true
+    },
     children: [
       {
         path: 'erc20',
@@ -58,6 +65,11 @@ const routes = [
         path: 'erc721',
         name: 'test.contract.erc721',
         component: ERC721View
+      },
+      {
+        path: 'minterFactory721',
+        name: 'test.contract.minterFactory721',
+        component: MinterFactory721View
       }
     ]
 
@@ -79,11 +91,45 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
+const isSignedIn = ()=>{
+
+  const storage = useStorage()  
 
   
+  const address = storage.getStorageSync('address')
+  const expirationDate = storage.getStorageSync('expirationDate')
 
-  next()
+  if (new Date().getTime() > +expirationDate || !address) {
+    console.log('No token or invalid token');
+    store.dispatch('auth/logout');
+    return false;
+  }
+  else{
+    store.dispatch('auth/setAddress', address)
+    return true;
+  }
+
+}
+
+router.beforeEach((to, from, next) => {
+
+  if (to.matched.some(record => record.meta.requiresAuth)) { 
+
+    if (!isSignedIn()) {      
+      next({
+        path: `/login`
+        // query: {
+        //  redirect: to.fullPath,
+        // }
+      });
+    } else {
+      next();
+    }
+  }
+  else{
+
+    next()
+  } 
 
 })
 

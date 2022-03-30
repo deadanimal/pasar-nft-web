@@ -127,7 +127,7 @@
 					<div v-else>
 						Welcome {{addressShort}}
 						<span class="ml-2">
-							<a href="" class="text-sky-500">Logout</a>
+							<a href="#" @click="logout" class="text-sky-500">Logout</a>
 						</span>
 					</div>
 				</div>
@@ -264,6 +264,8 @@
 
 	import { useStorage } from "vue3-storage";
 	import { computed } from 'vue';
+	import { useRouter } from 'vue-router'
+	import { useStore } from 'vuex'
 
 	export default {
 		components: {
@@ -278,6 +280,8 @@
 		setup() {
 
 			const storage = useStorage()
+			const router = useRouter()
+			const store = useStore()
 
 
 			const addressShort = computed(()=>{
@@ -291,6 +295,17 @@
 			})
 
 			const address = storage.getStorageSync('address')
+
+			const logout = ()=>{
+				try{					
+					localStorage.clear()					
+					store.dispatch('auth/logout')					
+					location.replace('/')
+				}
+				catch(e){
+					console.error(e)
+				}
+			}
 		
 			return {
 				solutions,
@@ -298,7 +313,8 @@
 				resources,
 				recentPosts,				
 				address,
-				addressShort
+				addressShort,
+				logout
 			}
 		},
 	}

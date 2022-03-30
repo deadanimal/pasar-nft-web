@@ -12,6 +12,10 @@
             <a href="#" @click.prevent="$router.push({name:'test.contract.erc721'})" class="text-sky-300">ERC721 Test</a>    
         </p>
         
+        <p>
+            <a href="#" @click.prevent="$router.push({name:'test.contract.minterFactory721'})" class="text-sky-300">MinterFactory721 Test</a>    
+        </p>
+        
         
 
         <div>        

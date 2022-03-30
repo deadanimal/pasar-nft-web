@@ -34,10 +34,11 @@ let actions = {
           return;
         }
         vuexContext.commit("setAddress", address);
-
-
-
+	},
+	logout({commit}){
+		commit('clearAddress')
 	}
+
 
 
 }
