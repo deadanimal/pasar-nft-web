@@ -41,9 +41,9 @@
 
 		setup(){
 
-			const hostname = window.location.hostname
+			const host = window.location.host
 
-			const bifrostLogin = `https://chainbifrost.com/connect?dapp=${hostname}`
+			const bifrostLogin = `https://chainbifrost.com/connect?dapp=${host}`
 
 			return {
 				bifrostLogin

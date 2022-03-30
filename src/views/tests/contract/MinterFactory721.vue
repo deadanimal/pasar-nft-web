@@ -26,6 +26,17 @@
 				<input type="text" v-model="formModel.mint.uri" placeholder="Mint Uri" class="mx-2 border">	
 			</div>
 
+			<!-- Create -->
+			<div class="border-b p-4 mb-4"	>
+			
+				<button type="button" class="focus:outline-none text-white bg-orange-400 hover:bg-orange-600 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900 w-48" @click="create">Create</button>
+
+				<input type="text" v-model="formModel.create.name" placeholder="Contract Name" class="mx-2 border">	
+				<input type="text" v-model="formModel.create.symbol" placeholder="Contract symbol" class="mx-2 border">	
+				<input type="text" v-model="formModel.create.royalty" placeholder="Contract royalty" class="mx-2 border">	
+				<input type="text" v-model="formModel.create.creatorAddress" placeholder="Creator address" class="mx-2 border">	
+			</div>
+
 		</div>
 
 	</div>
@@ -59,6 +70,12 @@
 					address: '',
 					tokenId: '',
 					uri: ''
+				},
+				create: {
+					name: '',
+					symbol: '',
+					royalty: '',
+					creatorAddress: ''
 				}
 			})
 
@@ -82,6 +99,26 @@
 				balanceOf.value = newbalance.toNumber()
 			}
 
+			const create = async()=>{
+				try{
+
+					processing.value = true;
+
+					console.log(formModel.create)
+
+					const tx = await contract.populateTransaction.create( formModel.create.name, formModel.create.symbol, +formModel.create.royalty, formModel.create.creatorAddress )
+					var url = `https://chainbifrost.com/confirm?dapp=${location.host}.com&to=${tx.to}&data=${tx.data}`;
+
+					window.open(url)
+
+					processing.value = false;
+
+				}
+				catch(e){
+					console.error(e)
+				}
+			}
+
 
 			const mint = async ()=>{
 				try{
@@ -90,7 +127,7 @@
 
 					const tx = await contract.populateTransaction.mint(+formModel.mint.tokenId, formModel.mint.address, formModel.mint.uri  )					
 
-					var url = `https://chainbifrost.com/confirm?dapp=pasar-nft-web.onrender.com&to=${tx.to}&data=${tx.data}`;
+					var url = `https://chainbifrost.com/confirm?dapp=${location.host}&to=${tx.to}&data=${tx.data}`;
 					
 					window.open(url)
 
@@ -109,7 +146,9 @@
 			return {
 				formModel,
 				processing,
-				mint
+				
+				mint,
+				create
 			}
 
 		}

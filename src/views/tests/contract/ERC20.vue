@@ -302,7 +302,7 @@
 
 					// const tx = await contract.populateTransaction.burn(+formModel.burnValue);
 
-					// var url = `https://chainbifrost.com/confirm?dapp=pasar-nft-web.onrender.com&to=${tx.to}&data=${tx.data}&value=1`;
+					// var url = `https://chainbifrost.com/confirm?dapp=${location.host}&to=${tx.to}&data=${tx.data}&value=1`;
 					
 					// window.open(url)		
 
@@ -329,7 +329,7 @@
 
 					// const tx = await contract.populateTransaction.mint(formModel.mintAddress, +formModel.mintValue )					
 
-					// var url = `https://chainbifrost.com/confirm?dapp=pasar-nft-web.onrender.com&to=${tx.to}&data=${tx.data}`;
+					// var url = `https://chainbifrost.com/confirm?dapp=${location.host}&to=${tx.to}&data=${tx.data}`;
 					
 					// window.open(url)
 
