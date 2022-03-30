@@ -131,9 +131,7 @@
 					clearInterval(redirectInterval)	
 
 					router.push('/')
-				}, 6000)
-
-				router.push('/')
+				}, 6000)				
 
 				// return 
 				return {
