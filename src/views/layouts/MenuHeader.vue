@@ -121,11 +121,14 @@
 				<!-- Block: sign-in and sign up: shown only on tablet and above -->
 				<div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
 					<div v-if="!address">
-						<a :href="bifrostLogin" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"> Sign in </a>
+						<a href="#" @click="$router.push({name:'login'})" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"> Sign in </a>
 						<!-- <a href="#" class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"> Sign up </a> -->
 					</div>
 					<div v-else>
 						Welcome {{addressShort}}
+						<span class="ml-2">
+							<a href="" class="text-sky-500">Logout</a>
+						</span>
 					</div>
 				</div>
 			</div>
@@ -276,10 +279,6 @@
 
 			const storage = useStorage()
 
-			const hostname = window.location.hostname
-
-			const bifrostLogin = `https://chainbifrost.com/connect?dapp=${hostname}`
-
 
 			const addressShort = computed(()=>{
 				const address = storage.getStorageSync('address')
@@ -293,15 +292,11 @@
 
 			const address = storage.getStorageSync('address')
 		
-
-
-
 			return {
 				solutions,
 				callsToAction,
 				resources,
-				recentPosts,
-				bifrostLogin,
+				recentPosts,				
 				address,
 				addressShort
 			}

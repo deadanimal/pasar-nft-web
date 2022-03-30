@@ -20,7 +20,7 @@
             const store = useStore()
             const storage = useStorage()
 
-            const ethers = inject('ethers')
+            const ethers = inject('ethers')          
 
             const address = storage.getStorageSync("address")
             const sig = storage.getStorageSync("sig")
@@ -51,9 +51,6 @@
                 setUpContracts()
             }
 
-
-            
-
             // setup layout
             const route = useRoute();
             const default_layout = 'main';
@@ -61,9 +58,6 @@
             const layout = computed(()=>{                
                 return `${(route.meta.layout || default_layout)}-layout`
             }); 
-
-
-
 
             // data to return
             return { layout }

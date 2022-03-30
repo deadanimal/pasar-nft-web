@@ -18,7 +18,7 @@
 
 
 	export default {
-		setup(){
+		setup(){	
 
 			const ethers = inject('ethers')
 

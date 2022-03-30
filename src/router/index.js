@@ -3,7 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import CollectionsView from '../views/collections/Collections.vue'
 import CollectionDetailsView from '../views/collections/CollectionDetails.vue'
 import CollectionItemView from '../views/collections/CollectionItem.vue'
-import AuthView from '../views/Auth.vue'
+import AuthView from '../views/Auth.bk.vue'
+import LoginView from '../views/Login.vue'
 import BifrostAuthView from '../views/BifrostAuth.vue'
 import ERC20View from '../views/tests/contract/ERC20.vue'
 import ERC721View from '../views/tests/contract/ERC721.vue'
@@ -31,6 +32,14 @@ const routes = [
     path: '/auth',
     name: 'auth',
     component: AuthView,
+    meta:{
+      layout:'blank'
+    }
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: LoginView,
     meta:{
       layout:'blank'
     }
@@ -68,6 +77,14 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+
+  
+
+  next()
+
 })
 
 export default router

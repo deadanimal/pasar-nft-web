@@ -232,7 +232,7 @@
 
 			const ethers = inject('ethers')
 			const store = useStore();
-			const contractAddress = '0xB4bA73F5AE48347DD056fF0eF6F9DEDC00bC9462'
+			const contractAddress = '0x118c95c765e34a7A5eC4fcBfCb01c5abDC392325'
 			const {contract} = toRaw(store.getters['contract/contract'](contractAddress))
 			const signer = toRaw(store.getters['contract/signer'])
 			const userAddress = storage.getStorageSync('address')	
@@ -323,9 +323,15 @@
 
 					processing.value = true
 
-					const tx = await contract.mint(formModel.mintAddress, +formModel.mintValue )
+					// const tx = await contract.mint(formModel.mintAddress, +formModel.mintValue )
 
-					const receipt = await tx.wait()
+					// const receipt = await tx.wait()
+
+					const tx = await contract.populateTransaction.mint(formModel.mintAddress, +formModel.mintValue )					
+
+					var url = `https://chainbifrost.com/confirm?dapp=pasar-nft-web.onrender.com&to=${tx.to}&data=${tx.data}`;
+					
+					window.open(url)
 
 					updateBalanceOf()					
 

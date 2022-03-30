@@ -105,9 +105,15 @@
 	                    store.dispatch('contract/setContract', {address: c.address, contract:markRaw(contract)})
 	                }
 	            
-	            }
+	            }	           
 
 	            setUpContracts();   
+
+	            store.dispatch('auth/authenticateUser', {
+	            	address: queryData.address, 
+	            	timeout: queryData.ts,
+	            	storage:storage
+	            })
 
 				// some redirect function
 
@@ -120,10 +126,14 @@
 					
 				}, 1000)
 
-				setTimeout(()=>{
-					clearInterval(redirectInterval)					
+				setTimeout(()=>{			
+
+					clearInterval(redirectInterval)	
+
 					router.push('/')
 				}, 6000)
+
+				router.push('/')
 
 				// return 
 				return {

@@ -13,5 +13,8 @@ module.exports = defineConfig({
     plugins: [
       new NodePolyfillPlugin()
     ]
+  },
+  devServer: {
+    host: 'localhost'
   }
 })

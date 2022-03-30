@@ -16,8 +16,7 @@ import './assets/style.css'
 // lazy load, kept for reference
 // import { defineAsyncComponent } from "vue";
 
-let app = createApp(App).use(store).use(router).use(ethers).use(Vue3Storage);
-
+let app = createApp(App).use(store).use(router).use(ethers).use(Vue3Storage)
 app.provide('ethers', app.config.globalProperties.$ethers)
 
 // Lazy load, kept for reference
@@ -26,3 +25,5 @@ app.provide('ethers', app.config.globalProperties.$ethers)
 app.component('main-layout', MainLayout)
 
 app.mount('#app');
+
+export { app }
