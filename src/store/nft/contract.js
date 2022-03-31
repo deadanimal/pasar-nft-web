@@ -1035,6 +1035,7 @@ let state = {
 			  "event SaleStopped(address,uint256,uint256,address)",
 			  "function DEFAULT_ADMIN_ROLE() view returns (bytes32)",
 			  "function MINTER_ROLE() view returns (bytes32)",
+			  // sale id, &value=
 			  "function buy721(uint256) payable",
 			  "function dao() view returns (address)",
 			  "function forceSelling721(uint256)",
@@ -1049,6 +1050,7 @@ let state = {
 			  "function saleCompleted() view returns (uint256)",
 			  "function saleIdCounter() view returns (uint256)",
 			  "function sales(uint256) view returns (address, uint256, uint256, address, address)",
+			  // contract address, tokenid, price
 			  "function sell721(address,uint256,uint256) payable",
 			  "function stopSelling721(uint256) payable",
 			  "function supportsInterface(bytes4) view returns (bool)",
@@ -1067,6 +1069,7 @@ let state = {
 			  "constructor()",
 			  "event Approval(address indexed,address indexed,uint256 indexed)",
 			  "event ApprovalForAll(address indexed,address indexed,bool)",
+			  // 
 			  "event Created(string,string,uint256,address,address,uint256)",
 			  "event Minted(uint256,address,string)",
 			  "event RoleAdminChanged(bytes32 indexed,bytes32 indexed,bytes32 indexed)",
