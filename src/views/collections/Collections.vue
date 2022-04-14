@@ -4,7 +4,7 @@
 
         <!-- <p>Deploy #5</p> -->
       
-        <p class="mt-4">
+        <!-- <p class="mt-4">
             <a href="#" @click.prevent="$router.push({name:'test.contract.erc20'})" class="text-sky-300">ERC20 Test</a>    
         </p>
 
@@ -14,7 +14,7 @@
         
         <p>
             <a href="#" @click.prevent="$router.push({name:'test.contract.minterFactory721'})" class="text-sky-300">MinterFactory721 Test</a>    
-        </p>
+        </p> -->
         
         
 
@@ -22,6 +22,112 @@
             <h1 class="my-12 text-4xl font-semibold text-gray-900  sm:tracking-tight text-center">Explore Collections</h1>
 
         </div>
+
+        <div class="mb-4 border-b breakout overflow-x-scroll px-4 lg:flex lg:justify-center">
+            <ul class="flex justify-between lg:px-4" style="min-width: 1024px;">
+                <li class="pb-4 border-b-4 border-sky-600">
+                    <a                    
+                        class=""
+                        href=""
+                    >
+                        <span class="font-semibold text-gray-500">Trending</span>
+                    </a>
+                </li>
+                <li class="pb-4">
+                    <a                    
+                        class=""
+                        href=""
+                    >
+                        <span class="font-semibold text-gray-500">Top</span>
+                    </a>
+                </li>
+                <li class="pb-4">
+                    <a                    
+                        class=""
+                        href=""
+                    >
+                        <span class="font-semibold text-gray-500">Art</span>
+                    </a>
+                </li>
+                <li class="pb-4">
+                    <a                    
+                        class=""
+                        href=""
+                    >
+                        <span class="font-semibold text-gray-500">Collectibles</span>
+                    </a>
+                </li>
+
+                <li class="pb-4">
+                    <a                    
+                        class=""
+                        href=""
+                    >
+                        <span class="font-semibold text-gray-500">Domain Names</span>
+                    </a>
+                </li>
+
+                <li class="pb-4">
+                    <a                    
+                        class=""
+                        href=""
+                    >
+                        <span class="font-semibold text-gray-500">Music</span>
+                    </a>
+                </li>
+
+                <li class="pb-4">
+                    <a                    
+                        class=""
+                        href=""
+                    >
+                        <span class="font-semibold text-gray-500">Photography</span>
+                    </a>
+                </li>
+                <li class="pb-4">
+                    <a                    
+                        class=""
+                        href=""
+                    >
+                        <span class="font-semibold text-gray-500">Sports</span>
+                    </a>
+                </li>
+
+                <li class="pb-4">
+                    <a                    
+                        class=""
+                        href=""
+                    >
+                        <span class="font-semibold text-gray-500">Trading Cards</span>
+                    </a>
+                </li>
+
+                <li class="pb-4">
+                    <a                    
+                        class=""
+                        href=""
+                    >
+                        <span class="font-semibold text-gray-500">Utility</span>
+                    </a>
+                </li>
+
+                <li class="pb-4">
+                    <a                    
+                        class=""
+                        href=""
+                    >
+                        <span class="font-semibold text-gray-500">Virtual Worlds</span>
+                    </a>
+                </li>
+
+                
+            </ul>            
+        </div>
+
+
+
+
+        <!-- the collection items -->
 
         <div>
 
