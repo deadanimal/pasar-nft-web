@@ -2,7 +2,7 @@
 import { ethers } from 'ethers';
 
 export default {
-   install: (app, options) => {            
+   install: (app) => {
       app.config.globalProperties.$ethers = ethers
    }
 }

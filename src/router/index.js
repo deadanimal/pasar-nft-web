@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-const CollectionsView =  ()=> import('../views/collections/Collections.vue')
+const CollectionListView =  ()=> import('../views/collections/CollectionList.vue')
 const CollectionDetailsView =  ()=> import('../views/collections/CollectionDetails.vue')
 const CollectionItemView =  ()=> import('../views/collections/CollectionItem.vue')
-const AuthView =  ()=> import('../views/Auth.bk.vue')
-const LoginView =  ()=> import('../views/Login.vue')
+// const AuthView =  ()=> import('../views/Auth.bk.vue')
+const AppLoginView =  ()=> import('../views/AppLogin.vue')
 const BifrostAuthView =  ()=> import('../views/BifrostAuth.vue')
 const ERC20View =  ()=> import('../views/tests/contract/ERC20.vue')
 const ERC721View =  ()=> import('../views/tests/contract/ERC721.vue')
@@ -18,7 +18,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: CollectionsView
+    component: CollectionListView
   },
   {
     path: '/collection/:name',
@@ -32,18 +32,18 @@ const routes = [
     component: CollectionItemView,
     props:true
   },
-  {
-    path: '/auth',
-    name: 'auth',
-    component: AuthView,
-    meta:{
-      layout:'blank'
-    }
-  },
+  // {
+  //   path: '/auth',
+  //   name: 'auth',
+  //   component: AuthView,
+  //   meta:{
+  //     layout:'blank'
+  //   }
+  // },
   {
     path: '/login',
     name: 'login',
-    component: LoginView,
+    component: AppLoginView,
     meta:{
       layout:'blank'
     }

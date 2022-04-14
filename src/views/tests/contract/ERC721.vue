@@ -202,7 +202,7 @@
 
 <script>
 	
-	import { computed, inject, toRaw, ref, reactive } from 'vue'
+	import { toRaw, ref, reactive } from 'vue'
 	import { useStore } from 'vuex'
 
 	export default {
@@ -270,11 +270,11 @@
 			})
 
 
-			const ethers = inject('ethers')
+			
 			const store = useStore();
 			const contractAddress = '0x0E65c46e76d6F4C3bB9eA32290325aeC8655846b'
 			const {contract} = toRaw(store.getters['contract/contract'](contractAddress))
-			const signer = toRaw(store.getters['contract/signer'])	
+			
 
 
 			
@@ -360,11 +360,11 @@
 				balanceOf.value = newbalance.toNumber()
 			}
 
-			const updateAllowance = async () => {
-				const newAllowance = await contract.allowance('0x17445FcEe7324ba95C784AaA0131f00E0Ae05128', '0x17445FcEe7324ba95C784AaA0131f00E0Ae05128')
+			// const updateAllowance = async () => {
+			// 	const newAllowance = await contract.allowance('0x17445FcEe7324ba95C784AaA0131f00E0Ae05128', '0x17445FcEe7324ba95C784AaA0131f00E0Ae05128')
 
-				allowance.value = newAllowance.toNumber()	
-			}
+			// 	allowance.value = newAllowance.toNumber()	
+			// }
 
 			const updatePauseStatus = async ()=>{
 				paused.value = await contract.paused()
@@ -378,7 +378,7 @@
 
 					const tx = await contract.burn(formModel.burn.tokenId);	
 
-					const receipt = await tx.wait()
+					await tx.wait()
 
 					updateBalanceOf()
 
@@ -400,8 +400,7 @@
 					const receipt = await tx.wait()
 
 					console.log({
-						tx,
-						receipt,
+						tx,						
 						tokenId: parseInt(Number(receipt.logs[0].topics[3]))
 					})
 
@@ -426,7 +425,7 @@
 
 					const tx = await contract.burnFrom(formModel.burnFromAddress, +formModel.burnFromValue)
 
-					const receipt = await tx.wait()
+					await tx.wait()
 
 					if(formModel.burnFromAddress == owner){
 						updateBalanceOf()
@@ -447,7 +446,7 @@
 
 					const tx = await contract.approve(formModel.approve.toAddress, formModel.approve.tokenId)
 
-					const receipt = await tx.wait()
+					await tx.wait()
 
 					updateBalanceOf()
 
@@ -463,7 +462,7 @@
 
 				const tx = await contract.pause()
 
-				const receipt = await tx.wait()
+				await tx.wait()
 
 				updatePauseStatus()
 
@@ -475,7 +474,7 @@
 
 				const tx = await contract.unpause()
 
-				const receipt = await tx.wait()
+				await tx.wait()
 
 				updatePauseStatus()
 
@@ -489,7 +488,7 @@
 
 					const tx = await contract.safeTransferFrom(	formModel.safeTransferFrom.fromAddress, formModel.safeTransferFrom.toAddress, formModel.safeTransferFrom.tokenId, formModel.safeTransferFrom.data )
 
-					const receipt = await tx.wait()
+					await tx.wait()
 
 					updateBalanceOf()
 
@@ -509,7 +508,7 @@
 
 					const tx = await contract.transferFrom(formModel.transferFrom.fromAddress, formModel.transferFrom.toAddress, formModel.transferFrom.tokenId)
 
-					const receipt = await tx.wait()
+					await tx.wait()
 
 					updateBalanceOf()
 
@@ -530,7 +529,7 @@
 
 						const tx = await contract.renounceOwnership()
 
-						const receipt = await tx.wait()
+						await tx.wait()
 
 						processing.value = false
 					}
@@ -551,13 +550,13 @@
 
 						const tx = await contract.transferOwnership(formModel.transferOwnership.toAddress)
 
-						const receipt = await tx.wait()
+						await tx.wait()
 
 						processing.value = false
 					}
 				}
 				catch(e){
-
+					console.error(e)
 				}
 			}
 

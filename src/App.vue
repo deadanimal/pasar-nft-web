@@ -1,12 +1,12 @@
 <template>
     <component :is="layout">
-        <router-view></router-view>
+        <router-view />
     </component>
 </template>
 
 <script>
 
-    import { ref, computed, inject, markRaw } from 'vue';
+    import { computed, inject, markRaw } from 'vue';
     import { useRoute } from 'vue-router';
     import { useStorage } from "vue3-storage";
     import { useStore } from "vuex"
@@ -24,8 +24,8 @@
 
             const address = storage.getStorageSync("address")
             const sig = storage.getStorageSync("sig")
-            const signer = storage.getStorageSync("signer")
-            const ts = storage.getStorageSync("ts")
+            // const signer = storage.getStorageSync("signer")
+            // const ts = storage.getStorageSync("ts")
 
 
             const setUpContracts = () => {

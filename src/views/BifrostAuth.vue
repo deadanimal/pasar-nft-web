@@ -56,7 +56,7 @@
 <script>
 	
 	import { useRoute, useRouter } from 'vue-router'
-	import { toRaw, markRaw, reactive, ref, inject, computed } from 'vue'
+	import { toRaw, markRaw, ref, inject } from 'vue'
 	import { useStorage } from "vue3-storage";
 	import { useStore } from "vuex"
 

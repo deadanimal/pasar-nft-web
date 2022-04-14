@@ -6,7 +6,7 @@
 
 
 <template>
-	<div data-component="layouts.MainLayout" class="pb-24">		
+	<div class="pb-24" data-component="views.layouts.MainLayout">		
 		<menu-header></menu-header>
 
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -21,6 +21,9 @@
 	import MenuHeader from './MenuHeader.vue'
 
 	export default {
+
+		name: 'MainLayout',
+
 		components: {
 			MenuHeader
 		}

@@ -77,18 +77,28 @@
 	import { useRoute } from 'vue-router';
 	import { useStore } from 'vuex';
 
-	import { computed, inject } from 'vue'
+	import { computed } from 'vue'
 	import { ClockIcon } from '@heroicons/vue/solid'
 	
+/*
+ ######    ##            ###      ######     ######    
+##    ##   ##           ## ##    ##    ##   ##    ##   
+##         ##          ##   ##   ##         ##         
+##         ##         ##     ##   ######     ######    
+##         ##         #########        ##         ##   
+##    ##   ##         ##     ##  ##    ##   ##    ##   
+ ######    ########   ##     ##   ######     ######    
+*/
+
 	export default {
+
+		name: 'CollectionDetails',
 
 		components: {
 			ClockIcon
 		},
 
-		setup(){
-
-			const ethers = inject('ethers')			
+		setup(){					
 
 			const route = useRoute()
 			const store = useStore()

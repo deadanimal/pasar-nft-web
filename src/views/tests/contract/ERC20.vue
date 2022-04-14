@@ -183,10 +183,8 @@
 
 <script>
 	
-	import { computed, inject, toRaw, ref, reactive } from 'vue'
-	import { useStore } from 'vuex'
-	import { useRoute } from 'vue-router'
-	import { useStorage } from "vue3-storage";
+	import { toRaw, ref, reactive } from 'vue'
+	import { useStore } from 'vuex'	
 
 	export default {
 
@@ -201,9 +199,7 @@
 ##     ##  ##     ##     ##      ##     ##  
 ########   ##     ##     ##      ##     ##  
 */
-
-			const route = useRoute()
-			const storage = useStorage()
+			
 			
 			const processing = ref(false)
 
@@ -240,12 +236,11 @@
 			})
 
 
-			const ethers = inject('ethers')
+			
 			const store = useStore();
 			const contractAddress = '0xB4bA73F5AE48347DD056fF0eF6F9DEDC00bC9462'
-			const {contract} = toRaw(store.getters['contract/contract'](contractAddress))
-			const signer = toRaw(store.getters['contract/signer'])
-			const userAddress = storage.getStorageSync('address')	
+			const {contract} = toRaw(store.getters['contract/contract'](contractAddress))			
+			
 			
 
 
@@ -316,7 +311,7 @@
 
 					const tx = await contract.burn(+formModel.burnValue);	
 
-					const receipt = await tx.wait()
+					await tx.wait()
 
 					// const tx = await contract.populateTransaction.burn(+formModel.burnValue);
 
@@ -343,7 +338,7 @@
 
 					const tx = await contract.mint(formModel.mintAddress, +formModel.mintValue )
 
-					const receipt = await tx.wait()
+					await tx.wait()
 
 					// const tx = await contract.populateTransaction.mint(formModel.mintAddress, +formModel.mintValue )					
 
@@ -372,7 +367,7 @@
 
 					const tx = await contract.burnFrom(formModel.burnFromAddress, +formModel.burnFromValue)
 
-					const receipt = await tx.wait()
+					await tx.wait()
 
 					if(formModel.burnFromAddress == owner){
 						updateBalanceOf()
@@ -393,7 +388,7 @@
 
 					const tx = await contract.increaseAllowance(formModel.increaseAllowance.spenderAddress, formModel.increaseAllowance.value)
 
-					const receipt = await tx.wait()
+					await tx.wait()
 
 					updateAllowance()
 
@@ -411,7 +406,7 @@
 
 					const tx = await contract.decreaseAllowance(formModel.decreaseAllowance.spenderAddress, formModel.decreaseAllowance.value)
 
-					const receipt = await tx.wait()
+					await tx.wait()
 
 					updateAllowance()
 
@@ -430,7 +425,7 @@
 
 					const tx = await contract.approve(formModel.approve.spenderAddress, formModel.approve.value)
 
-					const receipt = await tx.wait()
+					await tx.wait()
 
 					updateBalanceOf()
 
@@ -446,7 +441,7 @@
 
 				const tx = await contract.pause()
 
-				const receipt = await tx.wait()
+				await tx.wait()
 
 				updatePauseStatus()
 
@@ -458,7 +453,7 @@
 
 				const tx = await contract.unpause()
 
-				const receipt = await tx.wait()
+				await tx.wait()
 
 				updatePauseStatus()
 
@@ -472,7 +467,7 @@
 
 					const tx = await contract.transfer(formModel.transfer.toAddress, formModel.transfer.value)
 
-					const receipt = await tx.wait()
+					await tx.wait()
 
 					updateBalanceOf()
 
@@ -490,7 +485,7 @@
 
 					const tx = await contract.transferFrom(formModel.transferFrom.fromAddress, formModel.transferFrom.toAddress, formModel.transferFrom.value)
 
-					const receipt = await tx.wait()
+					await tx.wait()
 
 					updateBalanceOf()
 
@@ -511,7 +506,7 @@
 
 						const tx = await contract.renounceOwnership()
 
-						const receipt = await tx.wait()
+						await tx.wait()
 
 						processing.value = false
 					}
@@ -532,13 +527,13 @@
 
 						const tx = await contract.transferOwnership(formModel.transferOwnership.toAddress)
 
-						const receipt = await tx.wait()
+						await tx.wait()
 
 						processing.value = false
 					}
 				}
 				catch(e){
-
+					console.error(e)
 				}
 			}
 
@@ -564,8 +559,7 @@
 				balanceOf,
 				name,
 				owner,
-				paused,
-				symbol,
+				paused,				
 				totalSupply,
 				decimals,
 

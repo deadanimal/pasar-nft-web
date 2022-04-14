@@ -1,11 +1,11 @@
 const { defineConfig } = require('@vue/cli-service')
-const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin')
 const path = require('path')
 
 module.exports = defineConfig({
   transpileDependencies: true,
-  pages:{
-    index:{
+  pages: {
+    index: {
       entry: 'src/main.js',
       title: 'Pasar NFT'
     }
@@ -13,8 +13,8 @@ module.exports = defineConfig({
   configureWebpack: {
     plugins: [
       new NodePolyfillPlugin()
-    ]    
-  },  
+    ]
+  },
   devServer: {
     host: 'localhost'
   }

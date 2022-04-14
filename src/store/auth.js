@@ -23,17 +23,18 @@ let actions = {
 		storage.setStorageSync('address', address)
 		storage.setStorageSync('expirationDate', Number.parseInt(new Date().getTime()) + Number.parseInt(timeout) )
 	},
-	initAuth(storage){
+	initAuth({commit},storage){
 
 		const address = storage.getStorageSync('address')
 		const expirationDate = storage.getStorageSync('expirationDate')
 
 		if (new Date().getTime() > +expirationDate || !address) {
           console.log('No address or invalid address');
-          vuexContext.commit('clearToken');
+          commit('clearToken');
           return;
         }
-        vuexContext.commit("setAddress", address);
+        
+        commit("setAddress", address);
 	},
 	logout({commit}){
 		commit('clearAddress')

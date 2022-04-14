@@ -28,7 +28,19 @@
 						<td class="border px-2">mintFee</td>
 						<td class="border px-2">{{readData.mintFee}}</td>						
 						<td class="border px-2"></td>
-					</tr>					
+					</tr>	
+
+					<tr>
+						<td>
+							<div class="border-b p-4 mb-4"	>
+			
+								<button type="button" class="focus:outline-none text-white bg-green-400 hover:bg-green-600 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900 w-48" @click="ownerOf">Owner Of</button>
+
+								<input type="text" v-model="readData.form.ownerOf.tokenId" placeholder="Token Id" class="mx-2 border">	
+							
+							</div>			
+						</td>
+					</tr>				
 				</tbody>
 			</table>
 
@@ -93,9 +105,9 @@
 
 <script>
 
-	import { reactive, ref, toRaw, inject } from 'vue'
+	import { reactive, ref, toRaw, inject } from 'vue'	
 	import { useStore } from 'vuex'
-	import { useStorage } from "vue3-storage";
+	
 	
 	export default {
 
@@ -112,26 +124,36 @@
 */			
 
 			const store = useStore()
-			const storage = useStorage()
+			
+			
 			const ethers = inject('ethers')
 
+
 			const minterFactoryContractAddress = '0xf23092F88425AC7a6c8B39bae755EbCFc22D548d'
+			// const {contract:minterFactoryContract, abi:minterFactoryAbi} = toRaw(store.getters['contract/contract'](minterFactoryContractAddress))
 			const {contract:minterFactoryContract} = toRaw(store.getters['contract/contract'](minterFactoryContractAddress))
 
-
 			const market721ContractAddress = '0xa8552297BcC14F5253E5fCF7E841c39c7B137A5f'
+
 			const {contract:market721Contract} = toRaw(store.getters['contract/contract'](market721ContractAddress))
+
+			// let newContract;
 
 
 			console.log({minterFactoryContract})
-			const signer = toRaw(store.getters['contract/signer'])
-			const userAddress = storage.getStorageSync('address')
+			// const signer = toRaw(store.getters['contract/signer'])
+			// const userAddress = storage.getStorageSync('address')
 
 			const processing = ref(false)
 
 			const readData = reactive({
 				createFee: 0,
-				mintFee: 0
+				mintFee: 0,
+				form: {
+					ownerOf: {
+						tokenId: 0
+					}
+				}
 			})
 
 			const formModel = reactive({
@@ -157,7 +179,7 @@
 				}
 			});	
 
-			console.log({userAddress: storage.getStorageSync('address')});
+			// console.log({userAddress: storage.getStorageSync('address')});
 
 
 /*
@@ -197,7 +219,7 @@
 				// const newbalance = await minterFactoryContract.balanceOf('0x17445FcEe7324ba95C784AaA0131f00E0Ae05128')
 
 				// balanceOf.value = newbalance.toNumber()
-			}
+			};
 
 
 /*
@@ -222,6 +244,16 @@
 				readData.mintFee = ethers.utils.formatUnits(mintFee, 18)
 
 			})();
+
+			const ownerOf = async () => {
+				const tokenId = readData.form.ownerOf.tokenId
+
+				const owner = await minterFactoryContract.ownerOf(+tokenId)
+
+				console.log({owner})
+			}
+
+
 			
 
 /*
@@ -255,6 +287,18 @@
 				}
 			}
 
+			// const _instantiateNewContract = async ()=>{		
+
+			// 	const contract = new ethers.Contract("0x8A3B5339e73377Ca258Eb8883Ecb098e7abf2405",minterFactoryAbi, signer);
+
+			// 	newContract = markRaw(contract);
+
+			// }
+
+			// _instantiateNewContract();
+
+
+
 
 			const mint = async ()=>{
 				try{
@@ -280,7 +324,7 @@
 
 			const approve = async () => {
 				try{
-					processing.value = true
+					processing.value = true				
 
 					const tx = await minterFactoryContract.populateTransaction.approve(formModel.approve.contractAddress, formModel.approve.tokenId)
 
@@ -330,6 +374,8 @@
 				readData,
 				formModel,
 				processing,
+				ownerOf,
+
 
 
 				

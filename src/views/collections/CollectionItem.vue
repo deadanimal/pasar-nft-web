@@ -5,19 +5,24 @@
 
 		<h2 class="mt-4 text-2xl">{{item.title}}</h2> -->
 
+		<div class="flex-none lg:flex my-4 md:px-32 lg:px-0 ">
 
-		<div class="flex-none md:flex my-4">
-
-			<div class="w-full md:w-1/3 p-2 mr-4">
+			<div class="w-full lg:w-2/5 p-2  mr-4">
 				<figure>
 					<img :src="item.imageUrl" class="w-full rounded-md">
 				</figure>
+
+				<item-details :collection="collection" :item="item"></item-details>
 			</div>
 
 			
-			
-			<item-info :collection="collection" :item="item"/>
-			
+			<div class="w-full lg:w-3/5 p-4">
+				<item-info :collection="collection" :item="item"/>
+
+				<item-offer></item-offer>
+			</div>
+
+
 			
 		</div>
 
@@ -30,21 +35,24 @@
 	import { useRoute } from 'vue-router';
 	import { useStore } from 'vuex';
 
-	import _find from 'lodash/find'
-	import _lowerCase from 'lodash/lowerCase'
-
-	
-	import { ViewGridIcon } from '@heroicons/vue/solid'
-	import { HeartIcon } from '@heroicons/vue/solid'	
-
-
+/*
+ ######    ##            ###      ######     ######    
+##    ##   ##           ## ##    ##    ##   ##    ##   
+##         ##          ##   ##   ##         ##         
+##         ##         ##     ##   ######     ######    
+##         ##         #########        ##         ##   
+##    ##   ##         ##     ##  ##    ##   ##    ##   
+ ######    ########   ##     ##   ######     ######    
+*/
 
 	export default {
 
-		components:{			
-			ViewGridIcon,
-			HeartIcon,			
-			"item-info": defineAsyncComponent(()=> import('@/components/collections/item-details/ItemInfo.vue') )
+		name: 'CollectionItem',
+
+		components:{						
+			"item-info": defineAsyncComponent(()=> import('@/components/collections/item-details/ItemInfo.vue') ),
+			"item-details": defineAsyncComponent(()=> import('@/components/collections/item-details/ItemDetails.vue') ),
+			"item-offer": defineAsyncComponent(()=> import('@/components/collections/item-details/ItemOffer.vue') )
 		},
 
 		setup(){	
