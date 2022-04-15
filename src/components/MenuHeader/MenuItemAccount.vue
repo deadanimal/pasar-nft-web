@@ -25,6 +25,7 @@
             <PopoverPanel class="absolute z-10 md:-ml-24 lg:-ml-28 mt-3 transform px-2 w-screen max-w-xs sm:px-0 md:left-1/2 md:-translate-x-1/2">
                 <div class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                     <div class="relative grid gap-6 bg-white px-5 py-6 sm:gap-4 sm:p-4">
+                        
                         <a href="#" class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50" @click.prevent="logout">
                             <component :is="MdiLogoutVariant" class="flex-shrink-0 h-6 w-6 text-indigo-600" aria-hidden="true" />
                             <div class="ml-4">
@@ -33,6 +34,16 @@
                                 </p>                                
                             </div>
                         </a>
+
+                        <a href="#" class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50" @click.prevent="$router.push({name:'profile.my-collection'})">
+                            <component :is="MdiImageMultiple" class="flex-shrink-0 h-6 w-6 text-indigo-600" aria-hidden="true" />
+                            <div class="ml-4">
+                                <p class="text-base font-medium text-gray-900">
+                                    My Collection
+                                </p>                                
+                            </div>
+                        </a>
+
                     </div>                    
                 </div>
             </PopoverPanel>
@@ -55,6 +66,7 @@
 	import { Popover, PopoverButton, PopoverGroup, PopoverPanel } from '@headlessui/vue'
 	import MdiShieldAccount from 'vue-material-design-icons/ShieldAccount.vue';
 	import MdiLogoutVariant from 'vue-material-design-icons/LogoutVariant.vue';	
+    import MdiImageMultiple from 'vue-material-design-icons/ImageMultiple.vue'; 
 
 	import { useStore } from 'vuex'	
 
@@ -76,7 +88,8 @@
 			PopoverButton,
 			PopoverGroup,
 			PopoverPanel,			
-			MdiShieldAccount					
+			MdiShieldAccount,
+            MdiImageMultiple					
 		},
 
 /*
@@ -105,6 +118,7 @@
 			
 			return {
 				MdiLogoutVariant,
+                MdiImageMultiple,
 				logout				
 			}
 

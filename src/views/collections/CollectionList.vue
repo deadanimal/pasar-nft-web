@@ -164,8 +164,6 @@
         
         </div>
 
-        <my-collection></my-collection>
-
     </div>
 
 </template>
@@ -174,8 +172,6 @@
     
     import { useStore } from 'vuex';
     import { computed } from 'vue';
-
-    import MyCollection from '@/views/profile/MyCollection.vue'
 
 /*
  ######    ##            ###      ######     ######    
@@ -189,10 +185,6 @@
     export default {
 
         name: 'CollectionList',
-
-        components: {
-            MyCollection
-        },
 
         setup(){
             // data

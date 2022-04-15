@@ -11,6 +11,9 @@ const ERC721View =  ()=> import('../views/tests/contract/ERC721.vue')
 const TestContractView =  ()=> import('../views/tests/contract/TestContract.vue')
 const MinterFactory721View = () => import('../views/tests/contract/MinterFactory721.vue') 
 
+import profileRoutes from './profile'
+
+
 import { useStorage } from "vue3-storage";
 import store from  '../store'
 
@@ -81,7 +84,9 @@ const routes = [
     meta:{
       layout:'blank'
     }
-  }
+  },
+  ...profileRoutes
+
 
 
 ]
