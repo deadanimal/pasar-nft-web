@@ -25,9 +25,10 @@
         <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
           <label for="collectionName" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"> Collection Name </label>
           <div class="mt-1 sm:mt-0 sm:col-span-2">
-            <div class="max-w-lg flex rounded-md shadow-sm">              
-              <input type="text" name="collectionName" id="collectionName" autocomplete="collectionName" class="flex-1 block w-full focus:ring-indigo-500 focus:border-indigo-500 min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300 border h-8 p-2" v-model="formModel.name">
+            <div class="max-w-lg flex rounded-md shadow-sm">                
+              <input type="text" name="collectionName" id="collectionName" autocomplete="collectionName" class="flex-1 block w-full focus:ring-indigo-500 focus:border-indigo-500 min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300 border h-8 p-2" v-model="collectionName">              
             </div>
+            <p class="text-sm mt-1 text-rose-500">{{ errors.collectionName }}</p>
           </div>
         </div>
 
@@ -35,7 +36,8 @@
         <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
           <label for="description" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"> Description </label>
           <div class="mt-1 sm:mt-0 sm:col-span-2">
-            <textarea id="description" name="description" rows="3" class="max-w-lg shadow-sm block w-full focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border border-gray-300 rounded-md p-2" v-model="formModel.description"></textarea>
+            <textarea id="description" name="description" rows="3" class="max-w-lg shadow-sm block w-full focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border border-gray-300 rounded-md p-2" v-model="description"></textarea>
+            <p class="text-sm mt-1 text-rose-500">{{ errors.description }}</p>
             <p class="mt-2 text-sm text-gray-500">Write a few sentences describing this collection.</p>
           </div>
         </div>        
@@ -43,6 +45,7 @@
 
         <!-- Cover Photo -->
         <form-cover-photo @update="updateCoverPhoto"></form-cover-photo>
+
         
       </div>
     </div>
@@ -76,8 +79,11 @@
 
    /* eslint-disable */ 
 	
-	import { inject, reactive } from 'vue'
+	import { inject, ref, toRaw } from 'vue'
   import FormCoverPhoto from '@/components/collections/my-collection/form/CoverPhoto.vue'
+
+  import { useField, useForm } from 'vee-validate';
+  import * as yup from 'yup';
 
 /*
  ######    ##            ###      ######     ######    
@@ -97,34 +103,50 @@
 
 		setup(){
 
+      // const { errorMessage, value } = useField('collectionName', yup.string().required().min(8));
+
+      
+
 			let ipfs;
 
 			( async ()=>{
 				ipfs = await inject('ipfs')				
 
-				
+				console.log(ipfs)
 
 			})();
-			
-      const formModel = reactive({
-        name: '',
-        description: '',
-        coverPhoto: null      
-      })            
+
+      const coverPhoto = ref(null);
+			   
+      const { errors, handleSubmit, resetForm } = useForm({
+        validationSchema: yup.object({
+          collectionName: yup.string().required().label('Collection name'),
+          description: yup.string().required().label('Description')          
+        })
+      })
+
+      const { value: collectionName } = useField('collectionName');
+      const { value: description } = useField('description');      
 
       const updateCoverPhoto = (file) => {
-        formModel.coverPhoto = file
-      }
+        coverPhoto.value = file
+      }      
 
-      const submitForm = () => {
-        console.log(formModel)
-      }
+      const submitForm = handleSubmit( values =>{
+
+        const {collectionName, description} = values
+
+        
+        
+      })
 
       const clearForm = () => {
-        formModel.name = '',
-        formModel.description = '',
-        formModel.coverPhoto = null,
-        formModel.showingPreview = false
+        collectionName.value = '',
+        description.value = '',
+
+        resetForm();
+
+        coverPhoto.value = null 
       }      
 
 /*
@@ -136,11 +158,14 @@
 ##    ##   ##            ##      ##     ##  ##    ##   ##   ###   
 ##     ##  ########      ##       #######   ##     ##  ##    ##   
 */
-      return {
-        formModel,
+      return {        
         updateCoverPhoto,
         submitForm,        
-        clearForm        
+        clearForm,  
+        collectionName,              
+        description,        
+        coverPhoto,
+        errors        
       }
 
 
