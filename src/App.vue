@@ -6,46 +6,21 @@
 
 <script>
 
-    import { computed, inject, markRaw } from 'vue';
+    import { computed } from 'vue';
     import { useRoute } from 'vue-router';
-    import { useStorage } from "vue3-storage";
-    import { useStore } from "vuex"
-
+    import { useStorage } from "vue3-storage";    
+    import useContractSetup from '@/mixins/useContractSetup'
     
 
     export default {
 
-        setup(){
+        setup(){            
 
-            const store = useStore()
+            const { setUpContracts } = useContractSetup()
+            
             const storage = useStorage()
 
-            const ethers = inject('ethers')          
-
             const address = storage.getStorageSync("address")
-            const sig = storage.getStorageSync("sig")
-            // const signer = storage.getStorageSync("signer")
-            // const ts = storage.getStorageSync("ts")
-
-
-            const setUpContracts = () => {
-                const provider = new ethers.providers.JsonRpcProvider("https://rpc.chainbifrost.com");               
-                                    
-                const signer = new ethers.Wallet(sig, provider)
-
-                store.dispatch('contract/setSigner', markRaw(signer))
-                store.dispatch('contract/setProvider', markRaw(provider))
-                store.dispatch('contract/setUserAddress', address)
-            
-                // setup contracts
-                const contracts = store.getters['contract/contracts'];
-
-                for(const c of contracts){                 
-                    const contract = new ethers.Contract(c.address, c.abi, signer);               
-                    store.dispatch('contract/setContract', {address: c.address, contract:markRaw(contract)})
-                }
-            
-            }
 
             if(address){
                 setUpContracts()

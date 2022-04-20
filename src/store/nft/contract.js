@@ -1,17 +1,20 @@
 import _find from 'lodash/find'
+import { MinterFactory721Contract } from './MinterFactory721Contract'
+import { myContract } from './myContract'
 
 
 
 let state = {
 	provider: {},
-	signer: '',
-	userAddress: '',
+	signer: '',	
+	createFee: 0,
 	contracts: [
 		{
 			name: 'SaifulToken',
 			erc: 'ERC20',
 			address: '0xB4bA73F5AE48347DD056fF0eF6F9DEDC00bC9462',
-			contract: null,
+			readContract: null,
+			writeContract: null,
 			abi: [
 				{
 					"inputs": [],
@@ -448,7 +451,8 @@ let state = {
 			name: 'SaifulNFT',
 			erc: 'ERC721',
 			address: '0x0E65c46e76d6F4C3bB9eA32290325aeC8655846b',
-			contract: null,
+			readContract: null,
+			writeContract: null,
 			abi: [
 				{
 					"inputs": [],
@@ -927,7 +931,8 @@ let state = {
 			name: 'PasarToken',
 			erc: '',
 			address: '0x118c95c765e34a7A5eC4fcBfCb01c5abDC392325',
-			contract: null,
+			readContract: null,
+			writeContract: null,
 			abi: [
 				"constructor()",
 				"event Approval(address indexed,address indexed,uint256)",
@@ -977,7 +982,8 @@ let state = {
 			name: 'PasarGovernor',
 			erc: '',
 			address: '0xAb06b46b298c917b5BdA21535294E99952028Aa2',
-			contract: null,
+			readContract: null,
+			writeContract: null,
 			abi: [
 			  "constructor(address)",
 			  "event ProposalCanceled(uint256)",
@@ -1023,7 +1029,8 @@ let state = {
 			name: 'Market721',
 			erc: '',
 			address: '0xa8552297BcC14F5253E5fCF7E841c39c7B137A5f',
-			contract: null,
+			readContract: null,
+			writeContract: null,
 			abi: [
 			  "constructor()",
 			  "event RoleAdminChanged(bytes32 indexed,bytes32 indexed,bytes32 indexed)",
@@ -1064,12 +1071,12 @@ let state = {
 			name: 'MinterFactory721',
 			erc: '',
 			address: '0xf23092F88425AC7a6c8B39bae755EbCFc22D548d',
-			contract: null,
+			readContract: null,
+			writeContract: null,
 			abi: [
 			  "constructor()",
 			  "event Approval(address indexed,address indexed,uint256 indexed)",
-			  "event ApprovalForAll(address indexed,address indexed,bool)",
-			  // 
+			  "event ApprovalForAll(address indexed,address indexed,bool)",			  
 			  "event Created(string,string,uint256,address,address,uint256)",
 			  "event Minted(uint256,address,string)",
 			  "event RoleAdminChanged(bytes32 indexed,bytes32 indexed,bytes32 indexed)",
@@ -1121,7 +1128,10 @@ let getters = {
 	provider: state => state.provider,
 	signer: state => state.signer,
 	contracts: state => state.contracts,
-	contract: state => address => _find(state.contracts, {address}),
+	contract: state => (address, operation) => {
+		const contract = _find(state.contracts, {address})
+		return operation == 'read' ? contract.readContract : contract.writeContract
+	},
 	contractByName: state => name => _find(state.contracts, {name}),
 	userAddress: state => state.userAddress
 }
@@ -1133,13 +1143,15 @@ let mutations = {
 	setSigner(state, signer){
 		state.signer = signer
 	},
-	setContract(state, {address, contract}){
+	setContract(state, {address, operation, contract}){	
+		if(operation == 'read'){
+			_find( state.contracts, {address}).readContract = contract
+		}
+		else if(operation == 'write'){
+			_find( state.contracts, {address}).writeContract = contract
+		}
 		
-		_find( state.contracts, {address}).contract = contract
-	},
-	setUserAddress(state, address){
-		state.userAddress = address
-	}
+	}	
 }
 
 let actions = {
@@ -1151,10 +1163,7 @@ let actions = {
 	},
 	setContract({commit}, contractData){
 		commit('setContract', contractData)
-	},
-	setUserAddress({commit}, address){
-		commit('setUserAddress', address)
-	}
+	}	
 }
 
 export const contract = {
@@ -1162,5 +1171,9 @@ export const contract = {
 	getters,
 	mutations,
 	actions,
-	namespaced: true
+	namespaced: true,
+	modules: {
+		MinterFactory721Contract,
+		myContract
+	}
 }
