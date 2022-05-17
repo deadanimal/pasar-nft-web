@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunknft_store"]=self["webpackChunknft_store"]||[]).push([[447],{40447:function(e,t,n){n.r(t),n.d(t,{default:function(){return i}});var s=n(73396);const a={"data-component":"views.NftShowcase"};function o(e,t,n,o,r,u){return(0,s.wg)(),(0,s.iD)("div",a," This will show all/featured NFT's ")}var r=n(15941),u={name:"NftShowcase",setup(){r.log("Loaded")}},c=n(40089);const f=(0,c.Z)(u,[["render",o]]);var i=f}}]);
+//# sourceMappingURL=447.bf404245.js.map
