@@ -171,7 +171,7 @@ export default {
                     name, symbol, royalty, creator, tokenAddress, tokenId
                 })
 
-                store.dispatch('contract/myContract/loadContracts')
+                store.dispatch('contract/myContract/loadContracts', storage.getStorageSync('address'))
             });
 
             store.dispatch('contract/MinterFactory721Contract/createContract', {
