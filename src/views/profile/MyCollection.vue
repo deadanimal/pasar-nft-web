@@ -9,7 +9,7 @@
  -->
  <template>
 	
-	<div data-component="views.profile.MyCollection">
+	<div data-component="views.profile.MyCollection" class="flex justify-center">
 
 		<create-collection></create-collection>
 
