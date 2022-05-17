@@ -1,17 +1,29 @@
 /* eslint-disable */
 
 import { toRaw } from 'vue'
+import { ethers } from 'ethers'
 
 let state = {
 	contracts: []	
 }
 
 let getters = {
-	contracts: state => state.contracts
+	contracts: state => {
+		const contracts = state.contracts		
+
+		return contracts.map((contract)=>{
+			const [name, symbol, royalty, creator, tokenAddress, tokenId] = contract.args
+			return {name, symbol, 
+				royalty: royalty.toNumber() / 100, 
+				creator, tokenAddress, 
+				tokenId: tokenId.toNumber()
+			}			
+		})
+	}
 }
 
 let mutations = {
-	setContracts(state, contracts){
+	setContracts(state, contracts){		
 		state.contracts = contracts
 	}
 }
@@ -25,7 +37,7 @@ let actions = {
 
 		const myContracts = _logs.filter((log)=>{          
 			return log.args[3] == myAddress
-		})
+		})		
 
 		commit('setContracts', myContracts)
 		       
@@ -56,6 +68,8 @@ let actions = {
 
 }
 
+
+// contract/myContract
 export const myContract = {
 	state,
 	getters,

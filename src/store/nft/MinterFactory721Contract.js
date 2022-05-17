@@ -146,8 +146,6 @@ let actions= {
 		
 		const url = `https://chainbifrost.com/confirm?dapp=${location.host}&to=${tx.to}&data=${tx.data}&value=${state.createFee}`;
 
-		
-
 		window.open(url)
 
 	}
