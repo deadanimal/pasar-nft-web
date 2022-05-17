@@ -43,8 +43,7 @@
         </div>        
 
 
-        <!-- Cover Photo -->
-        <form-cover-photo @update="updateCoverPhoto"></form-cover-photo>
+        
 
         
       </div>
@@ -72,17 +71,15 @@
 ##    ##   ##    ##   ##    ##    ##   ##            ##      
  ######     ######    ##     ##  ####  ##            ##      
  -->
-<script>
-
-   /* eslint-disable */ 
+<script>   
 	
-	import { inject, ref, toRaw } from 'vue'
-  import FormCoverPhoto from '@/components/collections/my-collection/form/CoverPhoto.vue'
+	import { inject, toRaw } from 'vue'
+  
 
   import { useField, useForm } from 'vee-validate';
   import * as yup from 'yup'
 
-  import toBuffer from 'it-to-buffer'
+  
   import moment from 'moment'
 
   import { useStorage } from "vue3-storage";
@@ -99,11 +96,17 @@
  ######    ########   ##     ##   ######     ######    
 */
 	export default {
-		name: 'CreateCollection',
+		name: 'CreateCollection',    
 
-    components: {
-      FormCoverPhoto
-    },
+/*
+ ######    ########   ########   ##     ##  ########   
+##    ##   ##            ##      ##     ##  ##     ##  
+##         ##            ##      ##     ##  ##     ##  
+ ######    ######        ##      ##     ##  ########   
+      ##   ##            ##      ##     ##  ##         
+##    ##   ##            ##      ##     ##  ##         
+ ######    ########      ##       #######   ##         
+*/
 
 		setup(){
 
@@ -112,17 +115,14 @@
       const storage = useStorage()
       const store = useStore()
 
-			let ipfs;
-
-      const ethers = inject('ethers');
+			let ipfs;      
 
 			( async ()=>{
-				ipfs = await inject('ipfs')	 
-        loadFile()       		        
+				ipfs = await inject('ipfs')	            		        
 			})();
 
-      const coverPhoto = ref(null);
-      const blobImage = ref('')
+      
+      
 			   
       const { errors, handleSubmit, resetForm } = useForm({
         validationSchema: yup.object({
@@ -134,18 +134,7 @@
       const { value: collectionName } = useField('collectionName');
       const { value: description } = useField('description');      
 
-/*
-##     ##  ########   ########   
-###   ###     ##      ##     ##  
-#### ####     ##      ##     ##  
-## ### ##     ##      ##     ##  
-##     ##     ##      ##     ##  
-##     ##     ##      ##     ##  
-##     ##     ##      ########   
-*/                 
-      const updateCoverPhoto = (file) => {
-        coverPhoto.value = file
-      }            
+
 
 
 /*
@@ -159,18 +148,17 @@
 */            
       const submitForm = handleSubmit( async (values) =>{
 
-        const {collectionName, description} = values
-
-        const {path:imageHash} =  await ipfs.add(coverPhoto.value)  
+        const {collectionName, description} = values          
 
         const result = await ipfs.add( JSON.stringify( {
           collectionName,
-          description,
-          imageHash,
+          description,          
           type:'collection',
           createdAt: moment(),
           user: storage.getStorageSync("address")
         } ))
+
+        console.log(result)
 
         const contract = toRaw(store.getters['contract/MinterFactory721Contract/writeContract']) 
 
@@ -183,7 +171,9 @@
         });
 
         const logs = await contract.filters.Created();
-        const _logs = await contract.queryFilter(logs, 0)    
+        const _logs = await contract.queryFilter(logs, 0)
+
+        console.log(_logs)    
 
 
         store.dispatch('contract/MinterFactory721Contract/createContract', {
@@ -196,17 +186,6 @@
 
       })   
 
-      const _mintContract = async () => {
-
-        store.dispatch('contract/myContract/mintNewContract', {
-          myAddress:storage.getStorageSync('address'),
-          metaurl: 'QmdgefELmFgfJtGZmGqKurUZNLk6UYCmV3oDzyhL4JJ43m'
-        })
-
-      } 
-
-      _mintContract()       
-
 
 /*
 ##     ##  ########   ########   
@@ -216,32 +195,18 @@
 ##     ##     ##      ##     ##  
 ##     ##     ##      ##     ##  
 ##     ##     ##      ########   
-*/            
-      const loadFile = async () => {
+*/
+      // const _mintContract = async () => {        
 
-        
+      //   store.dispatch('contract/myContract/mintNewContract', {
+      //     myAddress:storage.getStorageSync('address'),
+      //     metaurl: 'QmdgefELmFgfJtGZmGqKurUZNLk6UYCmV3oDzyhL4JJ43m'
+      //   })
 
-      
-        
-        // const stream = await toBuffer( ipfs.cat('QmYYnWSarSRSeu4wBVoJdgsk7x7ZuvvwNVRAtkdKAUFBwF') )
+      // }      
 
-        // // to base64
-        // const u8 = new Uint8Array(stream);
-        // const b64 = Buffer.from(u8).toString('base64');
-        // const b64Src = `data:image/jpeg;base64,${b64}`
-              
-        // // to blob
-        // // const blob = new Blob(stream, {'type': 'image/png'});
-        // // const url = URL.createObjectURL(blob);        
 
-        // const stream = await toBuffer( ipfs.cat('QmdgefELmFgfJtGZmGqKurUZNLk6UYCmV3oDzyhL4JJ43m') )
 
-        // const u8 = new Uint8Array(stream);
-        // const buffer = Buffer.from(u8)
-
-        // console.log( JSON.parse(buffer.toString()) )
-    
-      }      
 
 /*
 ##     ##  ########   ########   
@@ -256,9 +221,7 @@
         collectionName.value = '',
         description.value = '',
 
-        resetForm();
-
-        coverPhoto.value = null 
+        resetForm();        
       }      
 
 /*
@@ -270,13 +233,11 @@
 ##    ##   ##            ##      ##     ##  ##    ##   ##   ###   
 ##     ##  ########      ##       #######   ##     ##  ##    ##   
 */
-      return {        
-        updateCoverPhoto,
+      return {                
         submitForm,        
         clearForm,  
         collectionName,              
-        description,        
-        coverPhoto,
+        description,                
         errors        
       }
 

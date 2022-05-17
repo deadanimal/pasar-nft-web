@@ -33,8 +33,6 @@ let actions = {
 			
 			const latestContract = toRaw(state.contracts[state.contracts.length - 1]);
 
-			console.log(latestContract)
-
 			const contractId = parseInt(latestContract.args[5], 16)
 			
 			const minterFactoryContract = toRaw( rootGetters['contract/MinterFactory721Contract/writeContract'] );

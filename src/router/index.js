@@ -1,15 +1,16 @@
-import { createRouter, createWebHistory } from 'vue-router'
+/* eslint-disable */
 
-const CollectionListView =  ()=> import('../views/collections/CollectionList.vue')
-const CollectionDetailsView =  ()=> import('../views/collections/CollectionDetails.vue')
-const CollectionItemView =  ()=> import('../views/collections/CollectionItem.vue')
-// const AuthView =  ()=> import('../views/Auth.bk.vue')
-const AppLoginView =  ()=> import('../views/AppLogin.vue')
-const BifrostAuthView =  ()=> import('../views/BifrostAuth.vue')
-const ERC20View =  ()=> import('../views/tests/contract/ERC20.vue')
-const ERC721View =  ()=> import('../views/tests/contract/ERC721.vue')
-const TestContractView =  ()=> import('../views/tests/contract/TestContract.vue')
-const MinterFactory721View = () => import('../views/tests/contract/MinterFactory721.vue') 
+import { createRouter, createWebHistory } from 'vue-router'
+  
+const CollectionDetailsView =  ()=> import('@/views/collections/CollectionDetails.vue')
+const CollectionItemView =  ()=> import('@/views/collections/CollectionItem.vue')
+const AppLoginView =  ()=> import('@/views/AppLogin.vue')
+const BifrostAuthView =  ()=> import('@/views/BifrostAuth.vue')
+// const ERC20View =  ()=> import('@/views/tests/contract/ERC20.vue')
+// const ERC721View =  ()=> import('@/views/tests/contract/ERC721.vue')
+// const TestContractView =  ()=> import('@/views/tests/contract/TestContract.vue')
+// const MinterFactory721View = () => import('@/views/tests/contract/MinterFactory721.vue') 
+const NftShowcaseView = () => import('@/views/NftShowcase.vue') 
 
 import profileRoutes from './profile'
 
@@ -21,7 +22,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: CollectionListView
+    component: NftShowcaseView
   },
   {
     path: '/collection/:name',
@@ -51,32 +52,32 @@ const routes = [
       layout:'blank'
     }
   },
-  {
-    path: '/test/contract',
-    name: 'test.contract',
-    component: TestContractView,
-    meta:{
-      requiresAuth: true
-    },
-    children: [
-      {
-        path: 'erc20',
-        name: 'test.contract.erc20',
-        component: ERC20View
-      },
-      {
-        path: 'erc721',
-        name: 'test.contract.erc721',
-        component: ERC721View
-      },
-      {
-        path: 'minterFactory721',
-        name: 'test.contract.minterFactory721',
-        component: MinterFactory721View
-      }
-    ]
+  // {
+  //   path: '/test/contract',
+  //   name: 'test.contract',
+  //   component: TestContractView,
+  //   meta:{
+  //     requiresAuth: true
+  //   },
+  //   children: [
+  //     {
+  //       path: 'erc20',
+  //       name: 'test.contract.erc20',
+  //       component: ERC20View
+  //     },
+  //     {
+  //       path: 'erc721',
+  //       name: 'test.contract.erc721',
+  //       component: ERC721View
+  //     },
+  //     {
+  //       path: 'minterFactory721',
+  //       name: 'test.contract.minterFactory721',
+  //       component: MinterFactory721View
+  //     }
+  //   ]
 
-  },
+  // },
   {
     path: '/login-via-web3',
     name:'auth.bifrost.callback',
@@ -96,7 +97,7 @@ const router = createRouter({
   routes
 })
 
-const isSignedIn = ()=>{
+const isSignedIn = ()=>{  
 
   const storage = useStorage()  
 
@@ -104,12 +105,12 @@ const isSignedIn = ()=>{
   const address = storage.getStorageSync('address')
   const expirationDate = storage.getStorageSync('expirationDate')
 
-  if (new Date().getTime() > +expirationDate || !address) {
+  if (new Date().getTime() > +expirationDate || !address) {    
     console.log('No token or invalid token');
     store.dispatch('auth/logout');
     return false;
   }
-  else{
+  else{    
     store.dispatch('auth/setAddress', address)
     return true;
   }
@@ -117,6 +118,7 @@ const isSignedIn = ()=>{
 }
 
 router.beforeEach((to, from, next) => {
+
 
   if (to.matched.some(record => record.meta.requiresAuth)) { 
 
