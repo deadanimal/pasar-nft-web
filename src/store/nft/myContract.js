@@ -8,23 +8,27 @@ let state = {
 }
 
 let getters = {
-	contracts: state => {
-		const contracts = state.contracts		
+	contracts: state => {		
 
-		return contracts.map((contract)=>{
+		return state.contracts;
+	},
+	contract: state => contractId => {
+				
+		return state.contracts.filter( contract => contract.tokenId == contractId);
+	}
+}
+
+let mutations = {
+	setContracts(state, contracts){	
+
+		state.contracts = contracts.map((contract)=>{
 			const [name, symbol, royalty, creator, tokenAddress, tokenId] = contract.args
 			return {name, symbol, 
 				royalty: royalty.toNumber() / 100, 
 				creator, tokenAddress, 
 				tokenId: tokenId.toNumber()
 			}			
-		})
-	}
-}
-
-let mutations = {
-	setContracts(state, contracts){		
-		state.contracts = contracts
+		})			
 	}
 }
 

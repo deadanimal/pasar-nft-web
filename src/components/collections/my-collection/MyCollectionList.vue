@@ -18,7 +18,7 @@
 
                                     <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Id</th>
                                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Name</th>
-                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Royalty (%)</th>
+                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Royalty&nbsp; (%)</th>
                                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Symbol</th>
                                     <!-- <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Role</th>
                                     <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
@@ -29,7 +29,11 @@
                             <tbody class="bg-white">
                                 <tr v-for="(contract, contractIdx) in myContracts" :key="contract.tokenId" :class="contractIdx % 2 === 0 ? undefined : 'bg-gray-50'">
                                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ contract.tokenId }}</td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ contract.name }}</td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">                                    
+                                        <router-link class="font-medium text-indigo-700 underline" :to="{name:'profile.my-collection', params: {contractId: contract.tokenId }}">
+                                            {{ contract.name }}
+                                        </router-link>
+                                    </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ contract.royalty }}</td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ contract.symbol }}</td>
                                     <!-- <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ person.role }}</td>
