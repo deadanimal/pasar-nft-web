@@ -1,0 +1,42 @@
+export default {
+			name: 'Market721',
+			erc: '',
+			address: '0xa8552297BcC14F5253E5fCF7E841c39c7B137A5f',
+			readContract: null,
+			writeContract: null,
+			abi: [
+			  "constructor()",
+			  "event RoleAdminChanged(bytes32 indexed,bytes32 indexed,bytes32 indexed)",
+			  "event RoleGranted(bytes32 indexed,address indexed,address indexed)",
+			  "event RoleRevoked(bytes32 indexed,address indexed,address indexed)",
+			  "event SaleCreated(address,uint256,uint256,address)",
+			  "event SaleFinalised(address,uint256,uint256,address,address)",
+			  "event SaleForcedStop(address,uint256,uint256,address)",
+			  "event SaleStopped(address,uint256,uint256,address)",
+			  "function DEFAULT_ADMIN_ROLE() view returns (bytes32)",
+			  "function MINTER_ROLE() view returns (bytes32)",
+			  // sale id, &value=
+			  "function buy721(uint256) payable",
+			  "function dao() view returns (address)",
+			  "function forceSelling721(uint256)",
+			  "function getRoleAdmin(bytes32) view returns (bytes32)",
+			  "function getSale721(uint256) view returns (address, uint256, uint256, address, address)",
+			  "function grantRole(bytes32,address)",
+			  "function hasRole(bytes32,address) view returns (bool)",
+			  "function minimumPrice() view returns (uint256)",
+			  "function rate() view returns (uint256)",
+			  "function renounceRole(bytes32,address)",
+			  "function revokeRole(bytes32,address)",
+			  "function saleCompleted() view returns (uint256)",
+			  "function saleIdCounter() view returns (uint256)",
+			  "function sales(uint256) view returns (address, uint256, uint256, address, address)",
+			  // contract address, tokenid, price
+			  "function sell721(address,uint256,uint256) payable",
+			  "function stopSelling721(uint256) payable",
+			  "function supportsInterface(bytes4) view returns (bool)",
+			  "function totalCommissions() view returns (uint256)",
+			  "function updateDao(address)",
+			  "function updateMinimumPrice(uint256)",
+			  "function updateRate(uint256)"
+			]
+		}

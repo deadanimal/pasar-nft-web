@@ -14,6 +14,7 @@ import store from './store'
 import ethers from "./plugins/ethers"
 import VueIpfs from './plugins/vue-ipfs'
 import Vue3Storage from "vue3-storage";
+import { createPinia } from 'pinia';
 
 // import './assets/tailwind.css'
 import './assets/style.css'
@@ -21,7 +22,7 @@ import './assets/style.css'
 // lazy load, kept for reference
 // import { defineAsyncComponent } from "vue";
 
-let app = createApp(App).use(store).use(router).use(ethers).use(Vue3Storage).use(VueIpfs)
+let app = createApp(App).use(store).use(router).use(ethers).use(Vue3Storage).use(VueIpfs).use(createPinia())
 app.provide('ethers', app.config.globalProperties.$ethers)
 app.provide('ipfs', app.config.globalProperties.$ipfs)
 
