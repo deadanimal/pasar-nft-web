@@ -96,11 +96,7 @@
 */
             const myContracts = computed(()=>{
                 return store.getters['contract/myContract/contracts'];
-            })    
-
-            setTimeout(()=>{
-                console.log(store.getters['contract/myContract/contracts'])
-            }, 2000)         
+            })                
 
 /*
 ########   ########   ########   ##     ##  ########   ##    ##   

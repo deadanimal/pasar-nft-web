@@ -96,6 +96,9 @@
     import { useStorage } from "vue3-storage";
     import { useStore } from 'vuex';
 
+    import { useMinterFactory721ContractStore } from '@/stores/MinterFactory721ContractStore'
+
+
 
 /*
 ######    ##            ###      ######     ######    
@@ -110,15 +113,15 @@ export default {
 
     name: 'CreateCollection',    
 
-        /*
-        ######    ########   ########   ##     ##  ########   
-        ##    ##   ##            ##      ##     ##  ##     ##  
-        ##         ##            ##      ##     ##  ##     ##  
-        ######    ######        ##      ##     ##  ########   
-        ##   ##            ##      ##     ##  ##         
-        ##    ##   ##            ##      ##     ##  ##         
-        ######    ########      ##       #######   ##         
-        */
+/*
+ ######    ########   ########   ##     ##  ########   
+##    ##   ##            ##      ##     ##  ##     ##  
+##         ##            ##      ##     ##  ##     ##  
+ ######    ######        ##      ##     ##  ########   
+      ##   ##            ##      ##     ##  ##         
+##    ##   ##            ##      ##     ##  ##         
+ ######    ########      ##       #######   ##         
+*/
 
         setup(){
 
@@ -126,6 +129,8 @@ export default {
 
         const storage = useStorage()
         const store = useStore()
+
+        const minterFactory721ContractStore = useMinterFactory721ContractStore()
 
         let ipfs;      
 
@@ -174,12 +179,12 @@ export default {
                 store.dispatch('contract/myContract/loadContracts', storage.getStorageSync('address'))
             });
 
-            store.dispatch('contract/MinterFactory721Contract/createContract', {
-              name:collectionName,
-              symbol: symbol,
-              royalty: royalty,
-              creator: storage.getStorageSync("address")
-            })
+            minterFactory721ContractStore.createContract({
+                name:collectionName,
+                symbol: symbol,
+                royalty: royalty,
+                creator: storage.getStorageSync("address")
+            })            
 
         })   
 
