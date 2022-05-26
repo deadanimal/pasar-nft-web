@@ -40,7 +40,7 @@
                         </div>
                     </div>        
 
-                    <!-- Symbol -->
+                    <!-- Royalty -->
                     <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
                         <label for="royalty" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"> Royalty (%) </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">            
@@ -168,8 +168,8 @@ export default {
             let {collectionName, symbol, royalty} = values
 
             royalty *= 100                      
-
-            const contract = toRaw(store.getters['contract/MinterFactory721Contract/writeContract']) 
+            
+            const contract = toRaw(minterFactory721ContractStore.writeContract)
 
             contract.on('Created', (name, symbol, royalty, creator, tokenAddress, tokenId)=>{
                 console.log({
@@ -186,26 +186,7 @@ export default {
                 creator: storage.getStorageSync("address")
             })            
 
-        })   
-
-
-        /*
-        ##     ##  ########   ########   
-        ###   ###     ##      ##     ##  
-        #### ####     ##      ##     ##  
-        ## ### ##     ##      ##     ##  
-        ##     ##     ##      ##     ##  
-        ##     ##     ##      ##     ##  
-        ##     ##     ##      ########   
-        */
-        // const _mintContract = async () => {        
-
-        //   store.dispatch('contract/myContract/mintNewContract', {
-        //     myAddress:storage.getStorageSync('address'),
-        //     metaurl: 'QmdgefELmFgfJtGZmGqKurUZNLk6UYCmV3oDzyhL4JJ43m'
-        //   })
-
-        // }      
+        })  
 
 
         /*

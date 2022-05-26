@@ -9,7 +9,7 @@
 -->
 <template>
 
-    <div data-component="views.profile.MyCollections">
+    <div data-component="views.collection.MyCollections">
 
 
         <!-- <div class="flex justify-center">
@@ -59,6 +59,8 @@
     import { useStorage } from 'vue3-storage'
     import { computed } from 'vue'
 
+    import { useMyContractStore } from '@/stores/MyContractStore'
+
     export default {
 
         name: 'MyCollections',
@@ -78,12 +80,11 @@
 */
         setup(){
             const store = useStore();
-            const storage = useStorage();
+            const storage = useStorage();            
+
+            const myContractStore = useMyContractStore()
             
-            (()=>{
-                // load collections
-                store.dispatch('contract/myContract/loadContracts', storage.getStorageSync('address'))
-            })();
+            myContractStore.loadContracts(storage.getStorageSync('address'));
 
 /*
  ######     #######   ##     ##  ########   ##     ##  ########   ########   ########   
@@ -95,8 +96,9 @@
  ######     #######   ##     ##  ##          #######      ##      ########   ########   
 */
             const myContracts = computed(()=>{
-                return store.getters['contract/myContract/contracts'];
-            })                
+                // return store.getters['contract/myContract/contracts'];
+                return myContractStore.contracts;
+            })             
 
 /*
 ########   ########   ########   ##     ##  ########   ##    ##   

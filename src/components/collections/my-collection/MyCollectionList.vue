@@ -1,6 +1,6 @@
 <template>
 	
-    <div class="p-4 md:p-0 max-w-3xl w-full" data-component="component.collections.my-collection.MyCollectioList">
+    <div class="p-4 md:p-0 max-w-3xl w-full" data-component="component.collections.my-collection.MyCollectionList">
         <div class="sm:flex sm:items-center">
             <div class="sm:flex-auto">
                 <h1 class="text-xl font-semibold text-gray-900">My Collections</h1>
@@ -30,7 +30,7 @@
                                 <tr v-for="(contract, contractIdx) in myContracts" :key="contract.tokenId" :class="contractIdx % 2 === 0 ? undefined : 'bg-gray-50'">
                                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ contract.tokenId }}</td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">                                    
-                                        <router-link class="font-medium text-indigo-700 underline" :to="{name:'profile.my-collection', params: {contractId: contract.tokenId }}">
+                                        <router-link class="font-medium text-indigo-700 underline" :to="{name:'collection.my-collection', params: {contractId: contract.tokenId }}">
                                             {{ contract.name }}
                                         </router-link>
                                     </td>

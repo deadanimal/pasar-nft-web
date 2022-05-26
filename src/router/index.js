@@ -2,17 +2,12 @@
 
 import { createRouter, createWebHistory } from 'vue-router'
   
-const CollectionDetailsView =  ()=> import('@/views/collections/CollectionDetails.vue')
-const CollectionItemView =  ()=> import('@/views/collections/CollectionItem.vue')
 const AppLoginView =  ()=> import('@/views/AppLogin.vue')
 const BifrostAuthView =  ()=> import('@/views/BifrostAuth.vue')
-// const ERC20View =  ()=> import('@/views/tests/contract/ERC20.vue')
-// const ERC721View =  ()=> import('@/views/tests/contract/ERC721.vue')
-// const TestContractView =  ()=> import('@/views/tests/contract/TestContract.vue')
-// const MinterFactory721View = () => import('@/views/tests/contract/MinterFactory721.vue') 
 const NftShowcaseView = () => import('@/views/NftShowcase.vue') 
 
-import profileRoutes from './profile'
+import collectionRoutes from './collection'
+import collectionItemsRoutes from './collection-items'
 
 
 import { useStorage } from "vue3-storage";
@@ -23,19 +18,7 @@ const routes = [
     path: '/',
     name: 'home',
     component: NftShowcaseView
-  },
-  {
-    path: '/collection/:name',
-    name: 'collection',
-    component: CollectionDetailsView,
-    props:true
-  },
-  {
-    path: '/collection/:name/item/:title',
-    name: 'collection-item',
-    component: CollectionItemView,
-    props:true
-  },
+  },  
   // {
   //   path: '/auth',
   //   name: 'auth',
@@ -52,32 +35,6 @@ const routes = [
       layout:'blank'
     }
   },
-  // {
-  //   path: '/test/contract',
-  //   name: 'test.contract',
-  //   component: TestContractView,
-  //   meta:{
-  //     requiresAuth: true
-  //   },
-  //   children: [
-  //     {
-  //       path: 'erc20',
-  //       name: 'test.contract.erc20',
-  //       component: ERC20View
-  //     },
-  //     {
-  //       path: 'erc721',
-  //       name: 'test.contract.erc721',
-  //       component: ERC721View
-  //     },
-  //     {
-  //       path: 'minterFactory721',
-  //       name: 'test.contract.minterFactory721',
-  //       component: MinterFactory721View
-  //     }
-  //   ]
-
-  // },
   {
     path: '/login-via-web3',
     name:'auth.bifrost.callback',
@@ -86,7 +43,8 @@ const routes = [
       layout:'blank'
     }
   },
-  ...profileRoutes
+  ...collectionRoutes,
+  ...collectionItemsRoutes
 
 
 

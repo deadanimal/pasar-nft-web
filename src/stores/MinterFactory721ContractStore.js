@@ -18,11 +18,10 @@ export const useMinterFactory721ContractStore = defineStore("MinterFactory721Con
 
 	actions: {		
 		initContract({ethers, provider, signer}){
-			const readContract = new ethers.Contract(this.address, this.abi, provider);
-			const writeContract = new ethers.Contract(this.address, this.abi, signer);
 
-			this.readContract = readContract;
-			this.writeContract = writeContract;			
+			this.readContract = new ethers.Contract(this.address, this.abi, provider);
+			this.writeContract = new ethers.Contract(this.address, this.abi, signer);			
+			
 		},
 		async setCreateFee(ethers){
 			const createFee = await this.readContract.createFee()

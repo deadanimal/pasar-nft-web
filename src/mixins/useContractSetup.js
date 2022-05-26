@@ -1,14 +1,14 @@
 import { inject, markRaw } from 'vue';
-import { useStore } from "vuex"
 import { useContractStore } from "@/stores/ContractStore"
+import { useMinterFactory721ContractStore } from '@/stores/MinterFactory721ContractStore'
 
 export default function (){
-
-	const store = useStore()    
+	
     const contractStore = useContractStore();
+    const minterFactory721ContractStore = useMinterFactory721ContractStore();
     const ethers = inject('ethers')              
 
-	const setUpContracts = () => {   		
+	const setUpContracts = () => {         
 
         const provider = new ethers.providers.JsonRpcProvider("https://rpc.chainbifrost.com");               
                             
@@ -24,11 +24,11 @@ export default function (){
             contractStore.setContract({address: c.address, contract:markRaw(contract)});                          
         }
 
-        // setup MinterFactory contract 
-        store.dispatch('contract/MinterFactory721Contract/initContract', {ethers, provider, signer})   
+        // setup MinterFactory contract         
+        minterFactory721ContractStore.initContract({ethers, provider, signer});
 
-        store.dispatch('contract/MinterFactory721Contract/setCreateFee', ethers)
-        store.dispatch('contract/MinterFactory721Contract/setMintFee', ethers)
+        minterFactory721ContractStore.setCreateFee(ethers)
+        minterFactory721ContractStore.setMintFee(ethers)
 
     
     }
